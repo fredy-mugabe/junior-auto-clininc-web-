@@ -2,12 +2,22 @@
 
 @theme {
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, ui-serif, serif;
 
-  --color-brand-green: #1b5e20;
-  --color-brand-green-mid: #2e7d32;
-  --color-brand-yellow: #ffeb3b;
-  --color-brand-yellow-deep: #fdd835;
-  --color-brand-cream: #fafdf8;
+  /* Accents (CTAs, badges on dark) */
+  --color-brand-green: #14532d;
+  --color-brand-green-mid: #166534;
+  --color-brand-yellow: #fde68a;
+  --color-brand-yellow-deep: #fcd34d;
+
+  /* Dark theme surfaces */
+  --color-brand-cream: #070b09;
+  --color-brand-mint: #0e1814;
+  --color-brand-blush: #0a0908;
+
+  /* Text on dark UI */
+  --color-brand-fg: #e8fdf3;
+  --color-brand-fg-muted: #7aab95;
 }
 
 html {
@@ -18,7 +28,9 @@ body {
   margin: 0;
   font-family: var(--font-sans);
   background-color: var(--color-brand-cream);
-  color: var(--color-brand-green);
+  color: var(--color-brand-fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
@@ -28,4 +40,16 @@ body {
   margin: 0;
   text-align: left;
   border: none;
+}
+
+/* Keep typed & autofill text visible on dark inputs (WebKit overrides otherwise) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-brand-fg);
+  caret-color: var(--color-brand-fg);
+  box-shadow: 0 0 0 1000px #04251c inset;
+  transition: background-color 99999s ease-out;
 }

@@ -62,7 +62,7 @@ export function AdminApplications({ session }: { session: Session | null }) {
           setOpen((v) => !v)
           if (!open && rows === null && !loading) void load()
         }}
-        className="text-left text-sm font-bold text-brand-green-mid underline decoration-brand-yellow decoration-2 underline-offset-4 hover:text-brand-green"
+        className="text-left text-sm font-bold text-emerald-300 underline decoration-brand-yellow decoration-2 underline-offset-[6px] transition hover:text-brand-fg"
       >
         {open ? 'Hide applications' : 'View applications (admin)'}
       </button>
@@ -73,17 +73,17 @@ export function AdminApplications({ session }: { session: Session | null }) {
             type="button"
             onClick={() => void load()}
             disabled={loading}
-            className="mb-4 rounded-lg bg-brand-yellow px-4 py-2 text-sm font-bold text-brand-green hover:bg-brand-yellow-deep disabled:opacity-50"
+            className="mb-4 rounded-full bg-gradient-to-r from-brand-yellow to-brand-yellow-deep px-5 py-2 text-sm font-bold text-brand-green shadow-sm transition hover:brightness-105 disabled:opacity-50"
           >
             {loading ? 'Loading…' : 'Refresh'}
           </button>
           {rows && rows.length === 0 && (
-            <p className="text-sm text-brand-green/80">No applications yet.</p>
+            <p className="text-sm text-brand-fg-muted">No applications yet.</p>
           )}
           {rows && rows.length > 0 && (
-            <div className="max-h-80 overflow-auto rounded-xl border border-brand-green/15">
-              <table className="w-full text-left text-sm">
-                <thead className="sticky top-0 bg-brand-cream">
+            <div className="max-h-80 overflow-auto rounded-2xl border border-emerald-500/25 bg-emerald-950/60 shadow-inner">
+              <table className="w-full text-left text-sm text-brand-fg">
+                <thead className="sticky top-0 bg-gradient-to-b from-emerald-900/95 to-emerald-950/98 backdrop-blur-sm">
                   <tr>
                     <th className="p-2 font-semibold">Name</th>
                     <th className="p-2 font-semibold">Email</th>
@@ -94,15 +94,15 @@ export function AdminApplications({ session }: { session: Session | null }) {
                 </thead>
                 <tbody>
                   {rows.map((r) => (
-                    <tr key={r.id} className="border-t border-brand-green/10">
+                    <tr key={r.id} className="border-t border-emerald-500/15">
                       <td className="p-2 align-top">{r.full_name}</td>
                       <td className="p-2 align-top break-all">{r.email}</td>
                       <td className="p-2 align-top capitalize">{r.type}</td>
                       <td className="p-2 align-top">
                         {r.cv_path ? (
-                          <span className="text-xs font-semibold text-brand-green/80">Attached</span>
+                          <span className="text-xs font-semibold text-emerald-300">Attached</span>
                         ) : (
-                          <span className="text-xs text-brand-green/60">—</span>
+                          <span className="text-xs text-brand-fg-muted">—</span>
                         )}
                       </td>
                       <td className="p-2 align-top whitespace-nowrap">

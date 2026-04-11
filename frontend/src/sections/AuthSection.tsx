@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { sectionReveal } from '../lib/motion'
 import { toast } from 'sonner'
 import type { Session, User } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabaseClient'
@@ -87,40 +88,33 @@ export function AuthSection() {
   return (
     <section id="auth" className="scroll-mt-24 bg-brand-cream py-20 md:py-28">
       <div className="mx-auto max-w-lg px-4 md:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl font-bold text-brand-green md:text-4xl">Account</h2>
-          <p className="mt-2 text-lg text-brand-green-mid/90">
+        <motion.div {...sectionReveal(0)}>
+          <h2 className="text-3xl font-bold text-brand-fg md:text-4xl">Account</h2>
+          <p className="mt-2 text-lg text-brand-fg-muted">
             Log in or create an account. Admins can review job applications below when authorized.
           </p>
         </motion.div>
 
         {!supabase && (
-          <p className="mt-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-            Configure <code className="rounded bg-amber-100 px-1">.env</code> with Supabase keys to
-            enable authentication.
+          <p className="mt-6 rounded-xl border border-amber-500/40 bg-amber-950/60 px-4 py-3 text-sm text-amber-100">
+            Configure <code className="rounded bg-amber-900/80 px-1">.env</code> with Supabase keys to enable
+            authentication.
           </p>
         )}
 
         {user ? (
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-            className="mt-8 space-y-6 rounded-2xl border border-brand-green/10 bg-white p-6 shadow-lg"
+            {...sectionReveal(0.06)}
+            className="mt-8 space-y-6 rounded-2xl border border-emerald-500/25 bg-emerald-950/85 p-6 shadow-lg"
           >
-            <p className="text-brand-green">
+            <p className="text-brand-fg">
               Signed in as <strong>{user.email}</strong>
             </p>
             <button
               type="button"
               onClick={handleLogout}
               disabled={loading || !supabase}
-              className="rounded-xl border-2 border-brand-green bg-transparent px-6 py-2.5 font-semibold text-brand-green transition hover:bg-brand-green hover:text-white disabled:opacity-50"
+              className="rounded-xl border-2 border-emerald-400/60 bg-transparent px-6 py-2.5 font-semibold text-brand-fg transition hover:bg-brand-green hover:text-white disabled:opacity-50"
             >
               Log out
             </button>
@@ -128,19 +122,17 @@ export function AuthSection() {
           </motion.div>
         ) : (
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-8 rounded-2xl border border-brand-green/10 bg-white p-6 shadow-lg md:p-8"
+            {...sectionReveal(0.05)}
+            className="mt-8 rounded-2xl border border-emerald-500/25 bg-emerald-950/85 p-6 shadow-lg md:p-8"
           >
-            <div className="flex gap-2 rounded-xl bg-brand-cream p-1">
+            <div className="flex gap-2 rounded-xl bg-emerald-950/90 p-1 ring-1 ring-emerald-500/20">
               <button
                 type="button"
                 onClick={() => setTab('login')}
                 className={`flex-1 rounded-lg py-2 text-sm font-bold transition ${
                   tab === 'login'
                     ? 'bg-brand-green text-white shadow'
-                    : 'text-brand-green/70 hover:text-brand-green'
+                    : 'text-brand-fg-muted hover:text-brand-fg'
                 }`}
               >
                 Login
@@ -151,7 +143,7 @@ export function AuthSection() {
                 className={`flex-1 rounded-lg py-2 text-sm font-bold transition ${
                   tab === 'register'
                     ? 'bg-brand-green text-white shadow'
-                    : 'text-brand-green/70 hover:text-brand-green'
+                    : 'text-brand-fg-muted hover:text-brand-fg'
                 }`}
               >
                 Register
@@ -161,7 +153,7 @@ export function AuthSection() {
             {tab === 'login' ? (
               <form onSubmit={handleLogin} className="mt-6 space-y-4">
                 <div>
-                  <label htmlFor="login-email" className="text-sm font-semibold text-brand-green">
+                  <label htmlFor="login-email" className="text-sm font-semibold text-emerald-200">
                     Email
                   </label>
                   <input
@@ -170,12 +162,12 @@ export function AuthSection() {
                     autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mt-1 w-full rounded-xl border border-brand-green/20 px-4 py-3 outline-none ring-brand-green/30 focus:ring-2"
+                    className="mt-1 w-full rounded-xl border border-emerald-500/30 bg-emerald-950/80 px-4 py-3 text-brand-fg outline-none ring-emerald-500/20 focus:ring-2 focus:ring-brand-yellow/40"
                     required
                   />
                 </div>
                 <div>
-                  <label htmlFor="login-password" className="text-sm font-semibold text-brand-green">
+                  <label htmlFor="login-password" className="text-sm font-semibold text-emerald-200">
                     Password
                   </label>
                   <input
@@ -184,7 +176,7 @@ export function AuthSection() {
                     autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="mt-1 w-full rounded-xl border border-brand-green/20 px-4 py-3 outline-none ring-brand-green/30 focus:ring-2"
+                    className="mt-1 w-full rounded-xl border border-emerald-500/30 bg-emerald-950/80 px-4 py-3 text-brand-fg outline-none ring-emerald-500/20 focus:ring-2 focus:ring-brand-yellow/40"
                     required
                   />
                 </div>
@@ -199,7 +191,7 @@ export function AuthSection() {
             ) : (
               <form onSubmit={handleRegister} className="mt-6 space-y-4">
                 <div>
-                  <label htmlFor="reg-email" className="text-sm font-semibold text-brand-green">
+                  <label htmlFor="reg-email" className="text-sm font-semibold text-emerald-200">
                     Email
                   </label>
                   <input
@@ -208,12 +200,12 @@ export function AuthSection() {
                     autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mt-1 w-full rounded-xl border border-brand-green/20 px-4 py-3 outline-none ring-brand-green/30 focus:ring-2"
+                    className="mt-1 w-full rounded-xl border border-emerald-500/30 bg-emerald-950/80 px-4 py-3 text-brand-fg outline-none ring-emerald-500/20 focus:ring-2 focus:ring-brand-yellow/40"
                     required
                   />
                 </div>
                 <div>
-                  <label htmlFor="reg-password" className="text-sm font-semibold text-brand-green">
+                  <label htmlFor="reg-password" className="text-sm font-semibold text-emerald-200">
                     Password
                   </label>
                   <input
@@ -222,13 +214,13 @@ export function AuthSection() {
                     autoComplete="new-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="mt-1 w-full rounded-xl border border-brand-green/20 px-4 py-3 outline-none ring-brand-green/30 focus:ring-2"
+                    className="mt-1 w-full rounded-xl border border-emerald-500/30 bg-emerald-950/80 px-4 py-3 text-brand-fg outline-none ring-emerald-500/20 focus:ring-2 focus:ring-brand-yellow/40"
                     required
                     minLength={6}
                   />
                 </div>
                 <div>
-                  <label htmlFor="reg-confirm" className="text-sm font-semibold text-brand-green">
+                  <label htmlFor="reg-confirm" className="text-sm font-semibold text-emerald-200">
                     Confirm password
                   </label>
                   <input
@@ -237,7 +229,7 @@ export function AuthSection() {
                     autoComplete="new-password"
                     value={confirm}
                     onChange={(e) => setConfirm(e.target.value)}
-                    className="mt-1 w-full rounded-xl border border-brand-green/20 px-4 py-3 outline-none ring-brand-green/30 focus:ring-2"
+                    className="mt-1 w-full rounded-xl border border-emerald-500/30 bg-emerald-950/80 px-4 py-3 text-brand-fg outline-none ring-emerald-500/20 focus:ring-2 focus:ring-brand-yellow/40"
                     required
                   />
                 </div>

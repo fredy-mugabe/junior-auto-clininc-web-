@@ -1,100 +1,82 @@
 import { motion } from 'framer-motion'
+import {
+  easeOutExpo,
+  heroContainer,
+  heroHeadline,
+  heroItem,
+  heroSubline,
+  hoverLift,
+  tapSquish,
+} from '../lib/motion'
 import { scrollToSection } from '../lib/scroll'
 
 const HERO_BG =
   'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=2400&q=80'
 
-const container = {
-  hidden: { opacity: 0, y: 18 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] as const, staggerChildren: 0.12 },
-  },
-}
-
-const item = {
-  hidden: { opacity: 0, y: 14 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] as const },
-  },
-}
-
 export function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[92svh] items-center justify-center overflow-hidden pt-20"
+      className="relative flex min-h-[92svh] scroll-mt-28 items-center justify-center overflow-hidden px-3 pt-24 md:px-5"
     >
-      <div
-        className="absolute inset-0 bg-cover bg-center"
+      <motion.div
+        className="absolute inset-3 rounded-[2rem] bg-cover bg-center md:inset-5 md:rounded-[2.5rem]"
         style={{ backgroundImage: `url(${HERO_BG})` }}
+        initial={{ scale: 1.08 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.35, ease: easeOutExpo }}
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-green/80 via-brand-green-mid/65 to-brand-yellow/35" />
+      <div className="absolute inset-3 rounded-[2rem] bg-gradient-to-br from-emerald-950/65 via-emerald-900/45 to-emerald-950/40 md:inset-5 md:rounded-[2.5rem]" />
+      <div className="pointer-events-none absolute inset-3 rounded-[2rem] ring-1 ring-emerald-400/25 md:inset-5 md:rounded-[2.5rem]" />
 
-      <div className="relative z-10 mx-auto w-full max-w-5xl px-4 py-16 text-left md:px-6">
+      <div className="relative z-10 mx-auto w-full max-w-5xl px-4 py-14 text-left md:px-6 md:py-20">
         <motion.div
-          variants={container}
+          variants={heroContainer}
           initial="hidden"
           animate="show"
-          className="flex flex-col items-start gap-6"
+          className="flex flex-col items-start gap-6 md:gap-7"
         >
           <motion.div
-            variants={item}
-            className="inline-flex items-center gap-3 rounded-full bg-white/10 px-4 py-2 text-white shadow-sm backdrop-blur-sm"
+            variants={heroItem}
+            className="inline-flex items-center gap-4 rounded-full border border-emerald-400/35 bg-black/40 px-5 py-3 text-brand-fg shadow-lg backdrop-blur-md md:gap-5 md:px-6 md:py-3.5"
           >
             <img
               src="/branding/logo-mark.png"
-              alt=""
-              className="h-9 w-9 rounded-full border border-white/40 bg-white/10 object-contain"
+              alt="J.A.C Junior Auto Clinic"
+              className="h-14 w-14 rounded-full border-2 border-emerald-400/40 bg-emerald-950/50 object-contain md:h-16 md:w-16"
             />
-            <span className="text-sm font-semibold tracking-wide">Junior Auto Clinic</span>
+            <span className="text-base font-semibold tracking-wide md:text-lg">Junior Auto Clinic</span>
           </motion.div>
 
-          <motion.img
-            src="/branding/logo-wordmark.png"
-            alt="J.A.C Junior Auto Clinic"
-            className="h-auto max-h-24 w-auto max-w-[min(90vw,480px)] object-contain drop-shadow-lg md:max-h-28"
-            variants={item}
-          />
           <motion.h1
-            variants={item}
-            className="text-balance text-4xl font-extrabold tracking-tight text-white drop-shadow md:text-6xl"
+            variants={heroHeadline}
+            className="text-balance text-4xl font-extrabold tracking-tight text-brand-fg drop-shadow-md md:text-6xl"
           >
             Welcome to Junior Auto Clinic
           </motion.h1>
           <motion.p
-            variants={item}
-            className="max-w-3xl text-pretty text-base font-medium text-white/95 drop-shadow md:text-lg"
+            variants={heroSubline}
+            className="max-w-3xl text-pretty text-base font-medium leading-relaxed text-brand-fg/95 drop-shadow md:text-lg"
           >
             Your trusted garage for diagnostics, repairs, and maintenance — done professionally, on time,
             and with clear communication.
           </motion.p>
-          <motion.p
-            variants={item}
-            className="max-w-2xl text-lg font-medium text-white drop-shadow md:text-xl"
-          >
-            Modern diagnostics, expert repairs, and dependable maintenance — your vehicle deserves
-            professional care at Junior Auto Clinique ltd.
-          </motion.p>
-          <motion.div variants={item} className="flex flex-wrap items-center justify-start gap-4">
+          <motion.div variants={heroItem} className="flex flex-wrap items-center justify-start gap-3 pt-1 md:gap-4">
             <motion.button
               type="button"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={hoverLift}
+              whileTap={tapSquish}
               onClick={() => scrollToSection('apply')}
-              className="rounded-2xl bg-brand-yellow px-8 py-3.5 text-base font-bold text-brand-green shadow-lg transition hover:bg-brand-yellow-deep"
+              className="rounded-full bg-gradient-to-r from-brand-yellow to-brand-yellow-deep px-8 py-3.5 text-base font-bold text-brand-green shadow-[0_12px_30px_-8px_rgba(0,0,0,0.35)] transition hover:brightness-105"
             >
               Apply for a role
             </motion.button>
             <motion.button
               type="button"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={hoverLift}
+              whileTap={tapSquish}
               onClick={() => scrollToSection('services')}
-              className="rounded-2xl border-2 border-white bg-white/15 px-8 py-3.5 text-base font-bold text-white backdrop-blur-sm transition hover:bg-white/25"
+              className="rounded-full border-2 border-emerald-400/45 bg-emerald-950/55 px-8 py-3.5 text-base font-bold text-brand-fg shadow-lg backdrop-blur-md transition hover:bg-emerald-900/70"
             >
               Our services
             </motion.button>

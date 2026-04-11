@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { pageEnter } from '../lib/motion'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import type { User } from '@supabase/supabase-js'
@@ -8,6 +9,7 @@ import { supabase } from '../lib/supabaseClient'
 export function RegisterPage() {
   const navigate = useNavigate()
   const [user, setUser] = useState<User | null>(null)
+  const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
@@ -26,6 +28,10 @@ export function RegisterPage() {
     e.preventDefault()
     if (!supabase) {
       toast.error('Supabase is not configured.')
+      return
+    }
+    if (fullName.trim().length < 2) {
+      toast.error('Please enter your full name.')
       return
     }
     if (password.length < 6) {
@@ -59,58 +65,71 @@ export function RegisterPage() {
       return
     }
     toast.success('Account created. Check your email for the confirmation link.')
+    setFullName('')
     setPassword('')
     setConfirm('')
     navigate('/login')
   }
 
   return (
-    <main className="min-h-[calc(100svh-88px)] bg-brand-cream pt-24">
+    <main className="min-h-[calc(100svh-88px)] bg-transparent pt-28 pb-10 md:pt-36 md:pb-12">
       <div className="mx-auto max-w-lg px-4 md:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-        >
-          <h1 className="text-3xl font-bold text-brand-green md:text-4xl">Register</h1>
-          <p className="mt-2 text-lg text-brand-green-mid/90">Create an account to apply and save time.</p>
+        <motion.div {...pageEnter(0)}>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">Join us</p>
+          <h1 className="mt-2 text-3xl font-bold text-brand-fg md:text-4xl">Register</h1>
+          <p className="mt-3 text-lg leading-relaxed text-brand-fg-muted">
+            Create an account to apply and save time.
+          </p>
         </motion.div>
 
         {!supabase && (
-          <p className="mt-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-            Configure <code className="rounded bg-amber-100 px-1">.env</code> with Supabase keys to
-            enable authentication.
+          <p className="mt-6 rounded-xl border border-amber-500/40 bg-amber-950/60 px-4 py-3 text-sm text-amber-100">
+            Configure <code className="rounded bg-amber-900/80 px-1">.env</code> with Supabase keys to enable
+            authentication.
           </p>
         )}
 
         {user ? (
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-            className="mt-8 space-y-4 rounded-2xl border border-brand-green/10 bg-white p-6 shadow-lg"
+            {...pageEnter(0.06)}
+            className="mt-8 space-y-4 rounded-3xl border border-emerald-500/25 bg-emerald-950/85 p-6 shadow-[0_16px_48px_-24px_rgba(0,0,0,0.4)] backdrop-blur-sm"
           >
-            <p className="text-brand-green">
+            <p className="text-brand-fg">
               You’re already signed in as <strong>{user.email}</strong>.
             </p>
             <button
               type="button"
               onClick={() => navigate('/account')}
-              className="rounded-xl bg-brand-green px-6 py-2.5 font-semibold text-white transition hover:bg-brand-green-mid"
+              className="rounded-full bg-brand-green px-6 py-2.5 font-semibold text-white shadow-md shadow-brand-green/25 transition hover:bg-brand-green-mid"
             >
               Go to account
             </button>
           </motion.div>
         ) : (
           <motion.form
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, delay: 0.05 }}
+            {...pageEnter(0.05)}
             onSubmit={handleRegister}
-            className="mt-8 space-y-4 rounded-2xl border border-brand-green/10 bg-white p-6 shadow-lg md:p-8"
+            className="mt-8 space-y-4 rounded-3xl border border-emerald-500/25 bg-emerald-950/85 p-6 shadow-[0_16px_48px_-24px_rgba(0,0,0,0.4)] backdrop-blur-sm md:p-8"
           >
             <div>
-              <label htmlFor="reg-email" className="text-sm font-semibold text-brand-green">
+              <label htmlFor="reg-full-name" className="text-sm font-semibold text-emerald-200">
+                Full name
+              </label>
+              <input
+                id="reg-full-name"
+                name="name"
+                type="text"
+                autoComplete="name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Your first and last name"
+                className="mt-1 w-full rounded-2xl border border-emerald-500/30 bg-emerald-900 px-4 py-3 text-emerald-50 placeholder:text-brand-fg-muted/55 caret-emerald-200 outline-none transition focus:border-emerald-400/50 focus:ring-2 focus:ring-brand-yellow/40"
+                required
+                minLength={2}
+              />
+            </div>
+            <div>
+              <label htmlFor="reg-email" className="text-sm font-semibold text-emerald-200">
                 Email
               </label>
               <input
@@ -119,12 +138,13 @@ export function RegisterPage() {
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-brand-green/20 px-4 py-3 outline-none ring-brand-green/30 focus:ring-2"
+                placeholder="you@example.com"
+                className="mt-1 w-full rounded-2xl border border-emerald-500/30 bg-emerald-900 px-4 py-3 text-emerald-50 placeholder:text-brand-fg-muted/55 caret-emerald-200 outline-none transition focus:border-emerald-400/50 focus:ring-2 focus:ring-brand-yellow/40"
                 required
               />
             </div>
             <div>
-              <label htmlFor="reg-password" className="text-sm font-semibold text-brand-green">
+              <label htmlFor="reg-password" className="text-sm font-semibold text-emerald-200">
                 Password
               </label>
               <input
@@ -133,13 +153,13 @@ export function RegisterPage() {
                 autoComplete="new-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-brand-green/20 px-4 py-3 outline-none ring-brand-green/30 focus:ring-2"
+                className="mt-1 w-full rounded-2xl border border-emerald-500/30 bg-emerald-900 px-4 py-3 text-emerald-50 placeholder:text-brand-fg-muted/55 caret-emerald-200 outline-none transition focus:border-emerald-400/50 focus:ring-2 focus:ring-brand-yellow/40"
                 required
                 minLength={6}
               />
             </div>
             <div>
-              <label htmlFor="reg-confirm" className="text-sm font-semibold text-brand-green">
+              <label htmlFor="reg-confirm" className="text-sm font-semibold text-emerald-200">
                 Confirm password
               </label>
               <input
@@ -148,22 +168,22 @@ export function RegisterPage() {
                 autoComplete="new-password"
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-brand-green/20 px-4 py-3 outline-none ring-brand-green/30 focus:ring-2"
+                className="mt-1 w-full rounded-2xl border border-emerald-500/30 bg-emerald-900 px-4 py-3 text-emerald-50 placeholder:text-brand-fg-muted/55 caret-emerald-200 outline-none transition focus:border-emerald-400/50 focus:ring-2 focus:ring-brand-yellow/40"
                 required
               />
             </div>
             <button
               type="submit"
               disabled={loading || !supabase}
-              className="w-full rounded-xl bg-brand-green py-3 font-bold text-white shadow transition hover:bg-brand-green-mid disabled:opacity-50"
+              className="w-full rounded-full bg-brand-green py-3.5 font-bold text-white shadow-[0_12px_32px_-12px_rgba(20,83,45,0.45)] transition hover:bg-brand-green-mid disabled:opacity-50"
             >
               {loading ? '…' : 'Create account'}
             </button>
-            <p className="pt-1 text-center text-sm text-brand-green/80">
+            <p className="pt-1 text-center text-sm text-brand-fg-muted">
               Already have an account?{' '}
               <Link
                 to="/login"
-                className="font-semibold text-brand-green underline decoration-brand-yellow decoration-2 underline-offset-4"
+                className="font-semibold text-emerald-300 underline decoration-brand-yellow decoration-2 underline-offset-4 hover:text-brand-fg"
               >
                 Log in
               </Link>

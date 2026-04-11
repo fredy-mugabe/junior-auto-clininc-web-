@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { menuContainer, menuItem, spring } from '../lib/motion'
 import { scrollToSection } from '../lib/scroll'
 
 const links = [
@@ -35,37 +36,39 @@ export function Navbar() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-brand-green/10 bg-white/90 shadow-sm backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
+    <header className="fixed top-0 left-0 right-0 z-50 px-3 pt-3 md:px-5 md:pt-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-2xl border border-emerald-400/20 bg-emerald-950/25 px-3 py-2.5 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.35)] backdrop-blur-xl md:px-5 md:py-3">
         <button
           type="button"
           onClick={() => go(links[0])}
-          className="flex shrink-0 items-center gap-2 rounded-lg bg-white/80 px-2 py-1 outline-none ring-brand-green/40 shadow-sm shadow-brand-green/10 focus-visible:ring-2"
+          className="flex shrink-0 items-center gap-2 rounded-xl bg-black/15 px-2 py-1.5 outline-none ring-emerald-400/25 focus-visible:ring-2"
           aria-label="J.A.C Home"
         >
           <img
             src="/branding/logo-wordmark.png"
             alt="J.A.C Junior Auto Clinic"
-            className="h-10 w-auto max-w-[min(100vw-8rem,240px)] object-contain object-left drop-shadow-sm md:h-12 md:drop-shadow"
+            className="h-9 w-auto max-w-[min(100vw-8rem,220px)] object-contain object-left drop-shadow-sm md:h-11"
           />
         </button>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-0.5 md:flex" aria-label="Primary">
           {links.map((link) => (
-            <button
+            <motion.button
               key={link.kind === 'route' ? link.to : link.id}
               type="button"
               onClick={() => go(link)}
-              className="rounded-md px-3 py-2 text-sm font-semibold text-brand-green/90 transition hover:text-brand-green hover:underline hover:decoration-brand-yellow hover:decoration-2 hover:underline-offset-8"
+              whileHover={{ y: -2, transition: spring.snappy }}
+              whileTap={{ scale: 0.97, transition: spring.snappy }}
+              className="rounded-full px-3.5 py-2 text-sm font-medium text-brand-fg/95 drop-shadow-sm transition hover:bg-emerald-950/45 hover:text-brand-fg"
             >
               {link.label}
-            </button>
+            </motion.button>
           ))}
         </nav>
 
         <button
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-brand-green/20 bg-white/80 text-brand-green md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-400/25 bg-black/20 text-brand-fg backdrop-blur-sm md:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
@@ -88,21 +91,28 @@ export function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t border-white/30 bg-white/95 backdrop-blur-md md:hidden"
+            transition={spring.soft}
+            className="mx-auto mt-2 max-w-6xl overflow-hidden rounded-2xl border border-emerald-400/20 bg-emerald-950/55 shadow-lg backdrop-blur-xl md:hidden"
             aria-label="Mobile"
           >
-            <div className="flex flex-col px-4 py-3">
+            <motion.div
+              variants={menuContainer}
+              initial="hidden"
+              animate="show"
+              className="flex flex-col px-3 py-3"
+            >
               {links.map((link) => (
-                <button
+                <motion.button
                   key={link.kind === 'route' ? link.to : link.id}
                   type="button"
+                  variants={menuItem}
                   onClick={() => go(link)}
-                  className="rounded-md px-3 py-3 text-left text-base font-semibold text-brand-green/90 transition hover:bg-brand-cream hover:text-brand-green"
+                  className="rounded-xl px-3 py-3 text-left text-base font-medium text-brand-fg/95 transition hover:bg-emerald-950/40"
                 >
                   {link.label}
-                </button>
+                </motion.button>
               ))}
-            </div>
+            </motion.div>
           </motion.nav>
         )}
       </AnimatePresence>

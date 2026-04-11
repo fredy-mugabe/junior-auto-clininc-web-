@@ -1,4 +1,4 @@
-const HEADER_OFFSET = 88
+const HEADER_OFFSET = 104
 
 export function scrollToSection(id: string) {
   const el = document.getElementById(id)

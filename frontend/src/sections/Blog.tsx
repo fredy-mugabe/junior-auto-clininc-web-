@@ -1,4 +1,15 @@
 import { motion } from 'framer-motion'
+import {
+  cardHoverLight,
+  listContainer,
+  listItem,
+  sectionHeaderContainer,
+  sectionHeaderItem,
+} from '../lib/motion'
+import { SectionFrame } from '../components/SectionFrame'
+
+const BLOG_BG =
+  'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=2400&q=80'
 
 const posts = [
   {
@@ -24,16 +35,6 @@ const posts = [
   },
 ] as const
 
-const container = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.08 } },
-}
-
-const card = {
-  hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0 },
-}
-
 function formatDate(value: string) {
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return value
@@ -42,70 +43,69 @@ function formatDate(value: string) {
 
 export function Blog() {
   return (
-    <section
-      id="blog"
-      className="relative scroll-mt-24 py-20 md:py-28"
-      style={{
-        backgroundImage:
-          'url(https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=2400&q=80)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <div
-        className="absolute inset-0 bg-gradient-to-b from-black/45 via-white/15 to-white/55 backdrop-blur-[0.5px]"
-        aria-hidden
-      />
-      <div className="relative z-10 mx-auto max-w-6xl px-4 md:px-6">
+    <SectionFrame id="blog" bgUrl={BLOG_BG} maxWidth="6xl">
+      <motion.div
+        className="max-w-2xl rounded-3xl border border-emerald-500/25 bg-emerald-950/85 px-6 py-6 shadow-[0_12px_40px_-8px_rgba(0,0,0,0.45)] backdrop-blur-md md:px-8 md:py-7"
+        variants={sectionHeaderContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: '-60px', amount: 0.35 }}
+      >
+        <motion.p
+          variants={sectionHeaderItem}
+          className="text-sm font-bold uppercase tracking-[0.22em] text-emerald-400"
+        >
+          From the workshop
+        </motion.p>
         <motion.h2
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl font-bold text-brand-green md:text-4xl"
+          variants={sectionHeaderItem}
+          className="mt-3 text-3xl font-extrabold tracking-tight text-brand-fg drop-shadow-sm md:text-5xl"
         >
           Blog
         </motion.h2>
-        <p className="mt-2 max-w-2xl text-lg text-brand-green-mid/90">
-          Tips, maintenance guides, and quick explanations — written for drivers.
-        </p>
-
-        <motion.ul
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-40px' }}
-          className="mt-12 grid gap-6 md:grid-cols-3"
+        <motion.p
+          variants={sectionHeaderItem}
+          className="mt-4 max-w-xl text-lg font-medium leading-relaxed text-brand-fg/95 md:text-xl"
         >
-          {posts.map((post) => (
-            <motion.li
-              key={post.title}
-              variants={card}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="rounded-2xl border border-brand-green/10 bg-brand-cream p-6 shadow-lg shadow-brand-green/5 transition hover:shadow-xl"
-            >
-              <div className="flex items-center justify-between gap-3">
-                <span className="inline-flex items-center rounded-full bg-white px-3 py-1 text-xs font-semibold text-brand-green">
-                  {post.tag}
-                </span>
-                <time className="text-xs font-medium text-brand-green/70" dateTime={post.date}>
-                  {formatDate(post.date)}
-                </time>
-              </div>
-              <h3 className="mt-4 text-xl font-bold text-brand-green">{post.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-brand-green/85">{post.excerpt}</p>
+          Tips, maintenance guides, and quick explanations — written for drivers.
+        </motion.p>
+      </motion.div>
 
-              <button
-                type="button"
-                className="mt-5 inline-flex items-center gap-2 rounded-lg bg-brand-green px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-brand-green/20 transition hover:bg-brand-green/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green/40"
-              >
-                Read more
-                <span aria-hidden>→</span>
-              </button>
-            </motion.li>
-          ))}
-        </motion.ul>
-      </div>
-    </section>
+      <motion.ul
+        variants={listContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: '-40px' }}
+        className="mt-12 grid gap-6 md:grid-cols-3"
+      >
+        {posts.map((post) => (
+          <motion.li
+            key={post.title}
+            variants={listItem}
+            whileHover={cardHoverLight}
+            className="rounded-3xl border border-emerald-500/25 bg-emerald-950/80 p-6 shadow-[0_16px_48px_-20px_rgba(0,0,0,0.4)] backdrop-blur-md transition hover:border-emerald-400/30 hover:shadow-[0_22px_56px_-24px_rgba(0,0,0,0.45)]"
+          >
+            <div className="flex items-center justify-between gap-3">
+              <span className="inline-flex items-center rounded-full bg-emerald-800/90 px-3 py-1 text-xs font-semibold text-emerald-100">
+                {post.tag}
+              </span>
+              <time className="text-xs font-medium text-brand-fg-muted" dateTime={post.date}>
+                {formatDate(post.date)}
+              </time>
+            </div>
+            <h3 className="mt-4 text-xl font-bold text-brand-fg">{post.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-brand-fg-muted">{post.excerpt}</p>
+
+            <button
+              type="button"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand-green px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-black/30 transition hover:bg-brand-green-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow/60"
+            >
+              Read more
+              <span aria-hidden>→</span>
+            </button>
+          </motion.li>
+        ))}
+      </motion.ul>
+    </SectionFrame>
   )
 }
-
