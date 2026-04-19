@@ -1,8 +1,57 @@
-import { COMPANY_LEGAL, EMAIL, PHONES, TIN } from '../lib/constants'
+import { useMemo } from 'react'
+import { NavLink } from 'react-router-dom'
+import { COMPANY_LEGAL, EMAIL, getPublicSiteUrl, PHONES, TIN } from '../lib/constants'
+
+function phoneToE164Rw(local: string): string {
+  const digits = local.replace(/\D/g, '')
+  if (digits.startsWith('250')) return `+${digits}`
+  if (digits.startsWith('0')) return `+250${digits.slice(1)}`
+  return `+250${digits}`
+}
+
+const explore = [
+  { to: '/', label: 'Home' },
+  { to: '/services', label: 'Services' },
+  { to: '/about', label: 'About' },
+  { to: '/blog', label: 'Blog' },
+  { to: '/careers', label: 'Careers' },
+  { to: '/contact', label: 'Contact' },
+] as const
 
 export function Footer() {
+  const structuredData = useMemo(() => {
+    const url = getPublicSiteUrl()
+    return JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'AutoRepair',
+      name: COMPANY_LEGAL,
+      url,
+      telephone: phoneToE164Rw(PHONES[0]),
+      email: EMAIL,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Musanze',
+        addressRegion: 'Northern Province',
+        addressCountry: 'RW',
+      },
+      openingHoursSpecification: [
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+          opens: '07:30',
+          closes: '19:00',
+        },
+      ],
+      description:
+        'Automotive diagnostics, mechanical repair, maintenance, and technician training in Musanze, Rwanda.',
+      areaServed: { '@type': 'City', name: 'Musanze' },
+    })
+  }, [])
+
   return (
     <footer className="jac-footer border-t border-[#F4D03F]/25 py-10 text-white md:py-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
+
       <div className="mx-auto grid max-w-[min(100%,1980px)] gap-10 px-4 md:grid-cols-12 md:gap-8 md:px-8 lg:px-10">
         <div className="md:col-span-4">
           <img
@@ -13,24 +62,41 @@ export function Footer() {
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#F4D03F]/95">
             Precision automotive care
           </p>
-          <p className="mt-2 max-w-sm text-sm leading-relaxed text-white/70">
-            Musanze workshop — diagnostics, repair, and accountable service delivery.
+          <p className="mt-3 max-w-md text-sm leading-relaxed text-white/75">
+            Search-friendly summary: {COMPANY_LEGAL} is an automotive workshop in Musanze offering car
+            diagnostics, engine repair, brake and suspension service, scheduled maintenance, fleet support,
+            and internship pathways — with clear estimates and documented handovers.
           </p>
         </div>
 
         <div className="md:col-span-5">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#F4D03F]">Executive standard</p>
-          <p className="mt-3 text-sm font-semibold leading-snug text-white md:text-base">
-            CEO-level quality means clarity before cost, evidence before opinion, and discipline in every bay.
-          </p>
-          <p className="mt-3 text-sm leading-relaxed text-white/82 md:text-[0.9375rem]">
-            We run the workshop like a serious operation: documented inspections, prioritized recommendations,
-            and timelines you can plan around. Smart service is not louder marketing — it is structured
-            workmanship, transparent reporting, and respect for your time and investment.
-          </p>
-          <p className="mt-3 text-sm leading-relaxed text-white/78 md:text-[0.9375rem]">
-            Whether you need a single repair or ongoing fleet support, you get the same standard: careful
-            diagnosis, professional handover, and follow-through that builds long-term trust.
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#F4D03F]">Explore the site</p>
+          <nav aria-label="Site pages" className="mt-4 flex flex-wrap gap-2">
+            {explore.map(({ to, label }) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) =>
+                  [
+                    'rounded-full border px-3 py-1.5 text-xs font-semibold transition',
+                    isActive
+                      ? 'border-[#F4D03F] bg-[#F4D03F] text-black'
+                      : 'border-white/20 text-white/90 hover:border-[#F4D03F]/70 hover:text-[#F4D03F]',
+                  ].join(' ')
+                }
+              >
+                {label}
+              </NavLink>
+            ))}
+          </nav>
+          <p className="mt-5 text-sm leading-relaxed text-white/78">
+            Keywords people use when choosing a garage:{' '}
+            <span className="text-white/90">
+              Musanze car repair, OBD diagnostics Rwanda, genuine parts mindset, brake service, oil change,
+              suspension alignment, fleet maintenance Musanze, workshop internship Rwanda, trusted mechanic
+              Musanze
+            </span>
+            . Content on each page expands on how we deliver those services safely and transparently.
           </p>
         </div>
 

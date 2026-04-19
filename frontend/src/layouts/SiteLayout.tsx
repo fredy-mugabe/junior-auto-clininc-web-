@@ -14,7 +14,7 @@ export function SiteLayout() {
 
   return (
     <div className="min-h-svh bg-black">
-      <PageFrame variant={isHome ? 'fullBleed' : 'default'}>
+      <PageFrame>
         <div className={isHome ? 'relative min-h-dvh' : 'jac-frame-inner'}>
           <Navbar overHero={isHome} />
           <main className={isHome ? 'min-h-0' : ''}>

@@ -4,6 +4,21 @@ export const TIN = '10732005'
 export const PHONES = ['0784481659'] as const
 export const EMAIL = 'Juniorautoclinic@gmail.com'
 
+/**
+ * Public site URL for Open Graph, JSON-LD, and canonical hints.
+ * Set `VITE_SITE_URL` in Vercel (e.g. https://your-domain.com) for stable production URLs.
+ */
+export function getPublicSiteUrl(): string {
+  const raw = import.meta.env.VITE_SITE_URL
+  if (raw !== undefined && String(raw).trim() !== '') {
+    return String(raw).trim().replace(/\/$/, '')
+  }
+  if (typeof window !== 'undefined' && window.location?.origin) {
+    return window.location.origin
+  }
+  return 'https://junior-auto-clininc-officalwebsite.vercel.app'
+}
+
 /** Default Google Maps embed `src` if `VITE_GOOGLE_MAPS_EMBED_SRC` is unset (About page). */
 const GOOGLE_MAPS_EMBED_DEFAULT =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4211.733615337331!2d29.63703007521667!3d-1.5150986359195138!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dc5b000822b393%3A0xf73d5e5f730954cb!2sjunior%20auto%20clinic!5e1!3m2!1sen!2srw!4v1776519584978!5m2!1sen!2srw'

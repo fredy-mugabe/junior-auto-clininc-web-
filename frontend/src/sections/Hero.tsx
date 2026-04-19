@@ -1,86 +1,102 @@
 import { motion } from 'framer-motion'
-import {
-  easeOutExpo,
-  heroContainer,
-  heroHeadline,
-  heroItem,
-  heroSubline,
-  hoverLift,
-  tapSquish,
-} from '../lib/motion'
-import { scrollToSection } from '../lib/scroll'
-
-const HERO_BG =
-  'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=2400&q=80'
+import { useNavigate } from 'react-router-dom'
+import { GARAGE_IMAGES } from '../lib/garageImages'
 
 export function Hero() {
+  const navigate = useNavigate()
+
   return (
-    <section
-      id="home"
-      className="relative flex min-h-[92svh] scroll-mt-28 items-center justify-center overflow-hidden px-3 pt-24 md:px-5"
-    >
-      <motion.div
-        className="absolute inset-3 rounded-[2rem] bg-cover bg-center md:inset-5 md:rounded-[2.5rem]"
-        style={{ backgroundImage: `url(${HERO_BG})` }}
-        initial={{ scale: 1.08 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 1.35, ease: easeOutExpo }}
+    <section className="relative min-h-[min(82svh,900px)] overflow-hidden rounded-none">
+      <img
+        src={GARAGE_IMAGES.heroHome}
+        alt=""
+        className="pointer-events-none absolute inset-0 z-0 h-full min-h-full w-full object-cover object-top"
+        width={1920}
+        height={1080}
+        fetchPriority="high"
+        decoding="async"
       />
-      <div className="absolute inset-3 rounded-[2rem] bg-gradient-to-br from-emerald-950/65 via-emerald-900/45 to-emerald-950/40 md:inset-5 md:rounded-[2.5rem]" />
-      <div className="pointer-events-none absolute inset-3 rounded-[2rem] ring-1 ring-emerald-400/25 md:inset-5 md:rounded-[2.5rem]" />
+      {/* Global gradient + vignette for strong top-to-bottom readability */}
+      <div
+        className="absolute inset-0 z-[1] bg-gradient-to-br from-[#051616]/58 via-[#051616]/44 to-[#0a2824]/58"
+        aria-hidden
+      />
+      <div
+        className="absolute inset-0 z-[1] bg-gradient-to-t from-[#041312]/93 via-[#051616]/28 to-black/18"
+        aria-hidden
+      />
+      <div className="absolute inset-0 z-[1] shadow-[inset_0_0_220px_rgba(0,0,0,0.4)]" aria-hidden />
 
-      <div className="relative z-10 mx-auto w-full max-w-5xl px-4 py-14 text-left md:px-6 md:py-20">
+      <div className="relative z-10 mx-auto flex min-h-[min(82svh,900px)] max-w-7xl flex-col justify-center px-5 py-16 md:px-12 md:py-24">
         <motion.div
-          variants={heroContainer}
-          initial="hidden"
-          animate="show"
-          className="flex flex-col items-start gap-6 md:gap-7"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-6 inline-flex w-fit items-center gap-3 rounded-full border border-emerald-500/35 bg-black/40 px-4 py-2 pr-5 backdrop-blur-sm"
         >
-          <motion.div
-            variants={heroItem}
-            className="inline-flex items-center gap-4 rounded-full border border-emerald-400/35 bg-black/40 px-5 py-3 text-brand-fg shadow-lg backdrop-blur-md md:gap-5 md:px-6 md:py-3.5"
-          >
-            <img
-              src="/branding/logo-mark.png"
-              alt="J.A.C Junior Auto Clinic"
-              className="h-14 w-14 rounded-full border-2 border-emerald-400/40 bg-emerald-950/50 object-contain md:h-16 md:w-16"
-            />
-            <span className="text-base font-semibold tracking-wide md:text-lg">Junior Auto Clinic</span>
-          </motion.div>
+          <img
+            src="/branding/logo-mark.png"
+            alt=""
+            className="h-9 w-9 rounded-full border-2 border-[#F4D03F]/80 object-cover"
+          />
+          <span className="text-sm font-bold tracking-wide text-white">JUNIOR AUTO CLINIQUE ltd</span>
+        </motion.div>
 
-          <motion.h1
-            variants={heroHeadline}
-            className="text-balance text-4xl font-extrabold tracking-tight text-brand-fg drop-shadow-md md:text-6xl"
+        <motion.h1
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.05 }}
+          className="max-w-4xl text-4xl font-extrabold leading-[1.1] tracking-tight text-white drop-shadow-md md:text-5xl lg:text-6xl"
+        >
+          Welcome to JUNIOR AUTO CLINIQUE ltd
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="mt-6 max-w-3xl text-lg leading-relaxed text-white drop-shadow md:text-xl"
+        >
+          Your trusted garage for diagnostics, repairs, and maintenance — done professionally, on time,
+          and with clear communication. We invest in modern scan tools, organized service bays, and a team
+          that explains what your vehicle needs before any work is approved, so you always know what you
+          are paying for and why it matters for safety and longevity.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.14 }}
+          className="mt-4 max-w-3xl text-base leading-relaxed text-white/95 drop-shadow-sm md:text-lg"
+        >
+          Whether you rely on your car for daily commuting, family travel, or business deliveries, we
+          treat every booking with the same discipline: thorough inspection, honest recommendations, and
+          workmanship you can depend on when you leave the workshop.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.18 }}
+          className="mt-10 flex flex-wrap gap-4"
+        >
+          <motion.button
+            type="button"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate('/careers')}
+            className="rounded-2xl bg-[#F4D03F] px-8 py-3.5 text-base font-bold text-black shadow-lg transition hover:brightness-105"
           >
-            Welcome to Junior Auto Clinic
-          </motion.h1>
-          <motion.p
-            variants={heroSubline}
-            className="max-w-3xl text-pretty text-base font-medium leading-relaxed text-brand-fg/95 drop-shadow md:text-lg"
+            Apply for a role
+          </motion.button>
+          <motion.button
+            type="button"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate('/services')}
+            className="rounded-2xl border-2 border-emerald-400/70 bg-[#051616]/70 px-8 py-3.5 text-base font-bold text-white shadow-md backdrop-blur-sm transition hover:border-emerald-300 hover:bg-[#0a2824]/90"
           >
-            Your trusted garage for diagnostics, repairs, and maintenance — done professionally, on time,
-            and with clear communication.
-          </motion.p>
-          <motion.div variants={heroItem} className="flex flex-wrap items-center justify-start gap-3 pt-1 md:gap-4">
-            <motion.button
-              type="button"
-              whileHover={hoverLift}
-              whileTap={tapSquish}
-              onClick={() => scrollToSection('apply')}
-              className="rounded-full bg-gradient-to-r from-brand-yellow to-brand-yellow-deep px-8 py-3.5 text-base font-bold text-brand-green shadow-[0_12px_30px_-8px_rgba(0,0,0,0.35)] transition hover:brightness-105"
-            >
-              Apply for a role
-            </motion.button>
-            <motion.button
-              type="button"
-              whileHover={hoverLift}
-              whileTap={tapSquish}
-              onClick={() => scrollToSection('services')}
-              className="rounded-full border-2 border-emerald-400/45 bg-emerald-950/55 px-8 py-3.5 text-base font-bold text-brand-fg shadow-lg backdrop-blur-md transition hover:bg-emerald-900/70"
-            >
-              Our services
-            </motion.button>
-          </motion.div>
+            Our services
+          </motion.button>
         </motion.div>
       </div>
     </section>
