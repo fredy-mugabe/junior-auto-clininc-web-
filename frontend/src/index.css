@@ -2,22 +2,12 @@
 
 @theme {
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Fraunces", Georgia, ui-serif, serif;
 
-  /* Accents (CTAs, badges on dark) */
-  --color-brand-green: #14532d;
-  --color-brand-green-mid: #166534;
-  --color-brand-yellow: #fde68a;
-  --color-brand-yellow-deep: #fcd34d;
-
-  /* Dark theme surfaces */
-  --color-brand-cream: #070b09;
-  --color-brand-mint: #0e1814;
-  --color-brand-blush: #0a0908;
-
-  /* Text on dark UI */
-  --color-brand-fg: #e8fdf3;
-  --color-brand-fg-muted: #7aab95;
+  --color-brand-green: #d2ffd4;
+  --color-brand-green-mid: #9ee8a3;
+  --color-brand-yellow: #f4d03f;
+  --color-brand-yellow-deep: #e6c235;
+  --color-brand-cream: #000000;
 }
 
 html {
@@ -27,10 +17,50 @@ html {
 body {
   margin: 0;
   font-family: var(--font-sans);
-  background-color: var(--color-brand-cream);
-  color: var(--color-brand-fg);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: #000000;
+  color: rgba(255, 255, 255, 0.96);
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  color: inherit;
+}
+
+/* Framed shell on home / layout + matching footer */
+.jac-frame,
+.jac-footer {
+  background: linear-gradient(165deg, #071f1f 0%, #051616 42%, #041212 100%);
+}
+
+.jac-card {
+  border-radius: 1rem;
+  border: 1px solid rgba(16, 185, 129, 0.22);
+  background: rgba(10, 40, 36, 0.72);
+  box-shadow: 0 16px 48px -24px rgba(0, 0, 0, 0.55);
+}
+
+.brand-script {
+  font-family: "Trebuchet MS", "Segoe UI", "Gill Sans", "Palatino Linotype", serif;
+  letter-spacing: 0.02em;
+}
+
+.bg-white {
+  background-color: rgba(10, 40, 36, 0.55) !important;
+}
+
+.bg-brand-cream {
+  background-color: transparent !important;
+}
+
+.bg-brand-green {
+  background-color: #15803d !important;
+}
+
+.hover\:bg-brand-green-mid:hover {
+  background-color: #16a34a !important;
 }
 
 #root {
@@ -42,14 +72,19 @@ body {
   border: none;
 }
 
-/* Keep typed & autofill text visible on dark inputs (WebKit overrides otherwise) */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
-  -webkit-text-fill-color: var(--color-brand-fg);
-  caret-color: var(--color-brand-fg);
-  box-shadow: 0 0 0 1000px #04251c inset;
-  transition: background-color 99999s ease-out;
+/* Home hero film-strip slider (moves continuously to the left). */
+.home-slider-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: home-slide-left 42s linear infinite;
+}
+
+@keyframes home-slide-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
