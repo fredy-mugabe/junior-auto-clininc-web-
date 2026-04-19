@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
 
   --color-brand-green: #d2ffd4;
   --color-brand-green-mid: #9ee8a3;
@@ -47,6 +48,21 @@ textarea {
   letter-spacing: 0.02em;
 }
 
+/* Classic display headings (home hero & editorial accents) */
+.font-display-classic {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Soft “bokeh” orbs for hero depth (reference-style atmosphere) */
+.hero-bokeh {
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 20%, rgba(16, 185, 129, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 85% 75%, rgba(244, 208, 63, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(0, 0, 0, 0.35) 0%, transparent 45%);
+}
+
 .bg-white {
   background-color: rgba(10, 40, 36, 0.55) !important;
 }
@@ -77,7 +93,7 @@ textarea {
   display: flex;
   width: max-content;
   height: 100%;
-  animation: home-slide-left 42s linear infinite;
+  animation: home-slide-left 56s linear infinite;
 }
 
 @keyframes home-slide-left {

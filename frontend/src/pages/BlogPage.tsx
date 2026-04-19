@@ -21,7 +21,13 @@ function formatDate(value: string) {
 export function BlogPage() {
   return (
     <>
-      <section className="relative overflow-hidden rounded-none px-4 py-16 md:px-8 md:py-24">
+      <motion.section
+        className="relative overflow-hidden rounded-none px-4 py-16 md:px-8 md:py-24"
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
+      >
         <div className="absolute inset-0 bg-gradient-to-br from-[#051616] via-[#08221e] to-[#051616]" aria-hidden />
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="flex items-center gap-3 text-[#F4D03F]">
@@ -42,7 +48,7 @@ export function BlogPage() {
             later. Save the posts you care about and bring questions on your next visit.
           </p>
         </div>
-      </section>
+      </motion.section>
 
       <StockSectionBackdrop bgUrl={GARAGE_IMAGES.contentBlog} className="py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-8">

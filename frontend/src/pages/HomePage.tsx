@@ -1,16 +1,53 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
-import { COMPANY_LEGAL } from '../lib/constants'
+import { COMPANY_LEGAL, TIN } from '../lib/constants'
 
-const SLIDES = ['/site/home-slide-1.png', '/site/home-slide-2.png', '/site/home-slide-3.png'] as const
+/** Full-bleed slideshow — your workshop & facility photography + reference atmosphere slide */
+const SLIDES = [
+  '/site/home-hero-slide-1.png',
+  '/site/home-hero-slide-2.png',
+  '/site/home-hero-slide-3.png',
+  '/site/home-hero-slide-4.png',
+] as const
+
+const trustPoints = [
+  'Evidence-based diagnostics before parts are ordered',
+  'Musanze workshop with organized bays and tooling',
+  'Written findings and calm, professional handovers',
+] as const
+
+const stats = [
+  { value: 'Mon–Sat', label: 'Workshop hours' },
+  { value: 'Musanze', label: 'Northern Rwanda' },
+  { value: `TIN ${TIN}`, label: 'Registered business' },
+] as const
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.09, delayChildren: 0.12 },
+  },
+}
+
+const item = {
+  hidden: { opacity: 0, y: 22 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
+  },
+}
 
 export function HomePage() {
   const navigate = useNavigate()
+  const loopSlides = [...SLIDES, ...SLIDES]
 
   return (
-    <section className="relative min-h-dvh w-full overflow-hidden rounded-none">
+    <section className="relative flex min-h-[100dvh] w-full flex-col overflow-hidden rounded-none">
+      {/* Slideshow film strip */}
       <div className="home-slider-track pointer-events-none absolute inset-0 z-0">
-        {[...SLIDES, ...SLIDES].map((src, idx) => (
+        {loopSlides.map((src, idx) => (
           <img
             key={`${src}-${idx}`}
             src={src}
@@ -23,76 +60,139 @@ export function HomePage() {
           />
         ))}
       </div>
-      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/72 via-[#051616]/52 to-black/72" aria-hidden />
-      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#041312]/90 via-[#051616]/28 to-black/20" aria-hidden />
-      <div className="absolute inset-0 z-[1] shadow-[inset_0_0_220px_rgba(0,0,0,0.42)]" aria-hidden />
 
-      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-none flex-col justify-center px-5 pb-16 pt-24 sm:px-10 sm:pt-28 md:px-14 md:pb-20 md:pt-32 lg:px-20">
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-sm font-bold uppercase tracking-[0.22em] text-[#F4D03F] md:text-base"
-        >
-          Welcome
-        </motion.p>
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.05 }}
-          className="mt-4 max-w-5xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white drop-shadow-md sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
-        >
-          {COMPANY_LEGAL}
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mt-8 max-w-4xl text-lg leading-relaxed text-white/95 drop-shadow sm:text-xl md:text-2xl md:leading-relaxed"
-        >
-          Your trusted destination for diagnostics, repairs, internship development, and professional
-          vehicle care. We combine disciplined workshop standards with transparent communication so every
-          customer understands what is happening on their vehicle.
-        </motion.p>
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.14 }}
-          className="mt-5 max-w-4xl text-base leading-relaxed text-white/90 drop-shadow-sm sm:text-lg md:text-xl"
-        >
-          Explore our services, read workshop updates on the blog, apply for opportunities, or contact our
-          team directly. Everything you need starts here on one welcoming page.
-        </motion.p>
+      {/* Stronger stacked overlays — readability first */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/88 via-[#051616]/78 to-black/88" aria-hidden />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/55 via-[#041312]/45 to-[#020807]/96" aria-hidden />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black via-transparent to-black/65" aria-hidden />
+      <div className="hero-bokeh absolute inset-0 z-[1]" aria-hidden />
+      <div
+        className="absolute inset-0 z-[1] shadow-[inset_0_0_280px_rgba(0,0,0,0.65)]"
+        aria-hidden
+      />
 
-        <div className="mt-12 flex flex-wrap gap-4 md:mt-14 md:gap-5">
-          <button
-            type="button"
-            onClick={() => navigate('/services')}
-            className="rounded-2xl bg-[#F4D03F] px-8 py-3.5 text-base font-bold text-black shadow-lg transition hover:brightness-105 md:px-10 md:py-4 md:text-lg"
+      <div className="relative z-10 flex min-h-[100dvh] flex-1 flex-col px-5 pb-10 pt-[5.75rem] sm:px-10 sm:pt-28 md:px-14 md:pt-32 lg:px-20">
+        <motion.div
+          className="mx-auto flex w-full max-w-[56rem] flex-1 flex-col justify-center"
+          variants={container}
+          initial="hidden"
+          animate="show"
+        >
+          <motion.div
+            variants={item}
+            className="inline-flex max-w-full flex-wrap items-center gap-x-3 gap-y-1 rounded-full border border-white/15 bg-black/45 px-4 py-2.5 text-xs font-medium tracking-wide text-white/95 shadow-lg backdrop-blur-md sm:text-sm"
           >
-            Our services
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate('/blog')}
-            className="rounded-2xl border-2 border-[#F4D03F]/60 bg-black/30 px-8 py-3.5 text-base font-bold text-white shadow-md backdrop-blur-sm transition hover:border-[#F4D03F] hover:bg-white/10 md:px-10 md:py-4 md:text-lg"
+            <span className="inline-flex items-center gap-2 text-[#F4D03F]">
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#F4D03F]" aria-hidden />
+              Diagnostics &amp; repair
+            </span>
+            <span className="hidden text-white/35 sm:inline" aria-hidden>
+              •
+            </span>
+            <span>Musanze workshop</span>
+            <span className="text-white/35" aria-hidden>
+              •
+            </span>
+            <span>Professional standards</span>
+          </motion.div>
+
+          <motion.h1
+            variants={item}
+            className="font-display-classic mt-8 max-w-5xl text-[2.35rem] leading-[1.12] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)] sm:text-5xl md:text-6xl lg:text-[4.25rem] lg:leading-[1.08]"
           >
-            Read blog
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate('/careers')}
-            className="rounded-2xl border-2 border-emerald-400/65 bg-[#051616]/55 px-8 py-3.5 text-base font-bold text-white shadow-md backdrop-blur-sm transition hover:border-emerald-300 hover:bg-[#0a2824]/90 md:px-10 md:py-4 md:text-lg"
+            <span className="block text-white">Automotive care built on</span>
+            <span className="mt-2 block bg-gradient-to-r from-[#F4D03F] via-[#f0e6a8] to-[#c8e6d4] bg-clip-text text-transparent drop-shadow-none">
+              clarity, skill &amp; trust
+            </span>
+          </motion.h1>
+
+          <motion.p
+            variants={item}
+            className="mt-8 max-w-2xl text-base leading-relaxed text-white/92 sm:text-lg md:text-xl"
           >
-            Apply now
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate('/contact')}
-            className="rounded-2xl border-2 border-white/40 bg-black/30 px-8 py-3.5 text-base font-bold text-white shadow-md backdrop-blur-sm transition hover:border-white/70 hover:bg-white/10 md:px-10 md:py-4 md:text-lg"
-          >
-            Contact us
-          </button>
-        </div>
+            {COMPANY_LEGAL} welcomes you to a full-service garage where modern diagnostics, careful
+            mechanical work, and straight answers come standard — whether you need a warning light
+            investigated, a long trip checked, or a fleet kept dependable.
+          </motion.p>
+
+          <motion.ul variants={item} className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-2">
+            {trustPoints.map((line) => (
+              <li key={line} className="flex items-center gap-2.5 text-sm font-medium text-white/95 md:text-base">
+                <span
+                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-emerald-400/50 bg-emerald-950/80 text-emerald-300"
+                  aria-hidden
+                >
+                  ✓
+                </span>
+                {line}
+              </li>
+            ))}
+          </motion.ul>
+
+          <motion.div variants={item} className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
+            <button
+              type="button"
+              onClick={() => navigate('/services')}
+              className="inline-flex min-h-[3.25rem] items-center justify-center rounded-full bg-[#0f3d3e] px-10 text-base font-semibold text-white shadow-[0_12px_40px_-12px_rgba(15,61,62,0.9)] ring-1 ring-white/10 transition hover:bg-[#164f50] md:min-h-[3.5rem] md:text-lg"
+            >
+              Explore services
+              <span className="ml-2" aria-hidden>
+                →
+              </span>
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate('/contact')}
+              className="inline-flex min-h-[3.25rem] items-center justify-center rounded-full border-2 border-white/85 bg-white/95 px-10 text-base font-semibold text-[#0f3d3e] shadow-lg transition hover:bg-white md:min-h-[3.5rem] md:text-lg"
+            >
+              Contact the workshop
+            </button>
+          </motion.div>
+
+          <motion.p variants={item} className="mt-6 text-sm text-white/65">
+            Also visit:{' '}
+            <button
+              type="button"
+              onClick={() => navigate('/blog')}
+              className="font-semibold text-[#F4D03F] underline-offset-4 hover:underline"
+            >
+              Blog
+            </button>
+            {' · '}
+            <button
+              type="button"
+              onClick={() => navigate('/careers')}
+              className="font-semibold text-[#F4D03F] underline-offset-4 hover:underline"
+            >
+              Careers
+            </button>
+            {' · '}
+            <button
+              type="button"
+              onClick={() => navigate('/about')}
+              className="font-semibold text-[#F4D03F] underline-offset-4 hover:underline"
+            >
+              About
+            </button>
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55, duration: 0.65, ease: [0.22, 1, 0.36, 1] as const }}
+          className="mx-auto mt-auto grid w-full max-w-5xl grid-cols-1 gap-4 sm:grid-cols-3"
+        >
+          {stats.map(({ value, label }) => (
+            <div
+              key={label}
+              className="rounded-2xl border border-white/20 bg-white/[0.12] px-6 py-5 text-center shadow-[0_16px_48px_-20px_rgba(0,0,0,0.5)] backdrop-blur-md"
+            >
+              <p className="font-display-classic text-3xl font-semibold text-white md:text-[2rem]">{value}</p>
+              <p className="mt-1.5 text-sm font-medium text-white/75">{label}</p>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   )

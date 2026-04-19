@@ -5,7 +5,13 @@ import { COMPANY_LEGAL, EMAIL, PHONES } from '../lib/constants'
 export function ContactPage() {
   return (
     <>
-      <section className="relative overflow-hidden rounded-none px-4 py-16 md:px-8 md:py-24">
+      <motion.section
+        className="relative overflow-hidden rounded-none px-4 py-16 md:px-8 md:py-24"
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
+      >
         <div className="absolute inset-0 bg-gradient-to-br from-[#051616] via-[#08221e] to-[#051616]" aria-hidden />
         <div className="relative z-10 mx-auto max-w-7xl">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#F4D03F]">Contact</p>
@@ -21,9 +27,15 @@ export function ContactPage() {
             need on-site pickup or workshop-only service.
           </p>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="px-4 py-16 md:px-8 md:py-24">
+      <motion.section
+        className="px-4 py-16 md:px-8 md:py-24"
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.45, delay: 0.05, ease: [0.22, 1, 0.36, 1] as const }}
+      >
         <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3">
           <motion.article
             initial={{ opacity: 0, y: 12 }}
@@ -118,7 +130,7 @@ export function ContactPage() {
             </p>
           </motion.article>
         </div>
-      </section>
+      </motion.section>
     </>
   )
 }

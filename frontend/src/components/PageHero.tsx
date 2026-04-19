@@ -32,14 +32,14 @@ export function PageHero({
         decoding="async"
       />
       <div
-        className="absolute inset-0 z-[1] bg-gradient-to-br from-[#051616]/58 via-[#051616]/44 to-[#0a2824]/58"
+        className="absolute inset-0 z-[1] bg-gradient-to-br from-[#051616]/68 via-[#051616]/52 to-[#0a2824]/65"
         aria-hidden
       />
       <div
-        className="absolute inset-0 z-[1] bg-gradient-to-t from-[#041312]/93 via-[#051616]/28 to-black/18"
+        className="absolute inset-0 z-[1] bg-gradient-to-t from-[#041312]/96 via-[#051616]/35 to-black/25"
         aria-hidden
       />
-      <div className="absolute inset-0 z-[1] shadow-[inset_0_0_220px_rgba(0,0,0,0.4)]" aria-hidden />
+      <div className="absolute inset-0 z-[1] shadow-[inset_0_0_240px_rgba(0,0,0,0.5)]" aria-hidden />
 
       <div className="relative z-10 mx-auto flex min-h-[88dvh] max-w-7xl flex-col justify-center px-5 py-16 md:px-12 md:py-24">
         {eyebrow ? (
