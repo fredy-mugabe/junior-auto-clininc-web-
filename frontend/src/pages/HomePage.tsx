@@ -8,7 +8,7 @@ export function HomePage() {
   const navigate = useNavigate()
 
   return (
-    <section className="relative min-h-svh overflow-hidden rounded-b-[1.75rem] sm:rounded-b-[2.25rem] md:rounded-b-[2.75rem] lg:rounded-b-[3.25rem]">
+    <section className="relative min-h-dvh w-full overflow-hidden rounded-none">
       <div className="home-slider-track pointer-events-none absolute inset-0 z-0">
         {[...SLIDES, ...SLIDES].map((src, idx) => (
           <img
@@ -27,7 +27,7 @@ export function HomePage() {
       <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#041312]/90 via-[#051616]/28 to-black/20" aria-hidden />
       <div className="absolute inset-0 z-[1] shadow-[inset_0_0_220px_rgba(0,0,0,0.42)]" aria-hidden />
 
-      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-[min(100%,120rem)] flex-col justify-center px-5 py-20 sm:px-8 md:px-14 md:py-24 lg:px-16 lg:py-28">
+      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-none flex-col justify-center px-5 pb-16 pt-24 sm:px-10 sm:pt-28 md:px-14 md:pb-20 md:pt-32 lg:px-20">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
