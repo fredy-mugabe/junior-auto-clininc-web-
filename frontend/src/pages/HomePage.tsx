@@ -136,7 +136,7 @@ export function HomePage() {
 
           <motion.div
             variants={item}
-            className="mt-14 flex flex-col items-center gap-5 sm:flex-row sm:items-center sm:justify-center sm:gap-6"
+            className="mt-14 flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:justify-center sm:gap-8"
           >
             <button
               type="button"
@@ -163,7 +163,7 @@ export function HomePage() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55, duration: 0.65, ease: [0.22, 1, 0.36, 1] as const }}
-          className="mx-auto mt-auto grid w-full max-w-5xl grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6"
+          className="mx-auto mt-14 grid w-full max-w-5xl grid-cols-1 gap-5 sm:mt-16 sm:grid-cols-3 sm:gap-6"
         >
           {stats.map(({ value, label }) => (
             <div
