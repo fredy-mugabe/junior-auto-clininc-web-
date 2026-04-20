@@ -70,6 +70,17 @@ Use two terminals: backend `npm run dev` in `backend/`, frontend `npm run dev` i
 3. **Run the SQL** in [`docs/supabase-schema.sql`](docs/supabase-schema.sql) so the `applications` table exists.
 4. Ensure **`npm run dev`** is running in `backend/` and `VITE_API_URL` in `frontend/.env` points at that same API (default `http://localhost:4000`).
 
+## Vercel (production)
+
+**Production URL:** [https://junior-auto-clininc-officalwebsite.vercel.app](https://junior-auto-clininc-officalwebsite.vercel.app)
+
+If the live site does not match `main` on GitHub:
+
+1. In Vercel → **Project → Settings → Git**, confirm the repository is **`fredy-mugabe/junior-auto-clininc-web-`** and the production branch is **`main`**.
+2. Set **Root Directory** to **empty** (repository root), **not** `frontend`, so the root `vercel.json` runs `cd frontend && npm run build` and deploys `frontend/dist` (and keeps `/api` serverless routes at the repo root).
+3. Open **Deployments** → latest production deployment → **Building** log. If the build failed, Vercel keeps serving the **previous** successful deployment (you will still see old text and old stats).
+4. After a good deploy, scroll to the footer on the live site: **Build `abc1234`** must match the short Git SHA of the commit on GitHub.
+
 ## License
 
 Private project for Junior Auto Clinique ltd.

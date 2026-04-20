@@ -166,7 +166,17 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ delay: 0.15, duration: 0.45 }}
           >
-            <p>© {new Date().getFullYear()} {COMPANY_LEGAL}. All rights reserved.</p>
+            <p>
+              © {new Date().getFullYear()} {COMPANY_LEGAL}. All rights reserved.
+              {import.meta.env.VITE_GIT_SHA ? (
+                <span
+                  className="block pt-2 font-mono text-[0.65rem] text-white/35"
+                  title="Git commit deployed on Vercel. Compare with GitHub; if the site looks old, open the latest deployment log or reconnect the Git integration."
+                >
+                  Build {import.meta.env.VITE_GIT_SHA.slice(0, 7)}
+                </span>
+              ) : null}
+            </p>
           </motion.div>
         </div>
       </motion.div>
