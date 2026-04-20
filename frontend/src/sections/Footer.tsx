@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { NavLink } from 'react-router-dom'
-import { COMPANY_LEGAL, EMAIL, getPublicSiteUrl, PHONES, TIN } from '../lib/constants'
+import { COMPANY_LEGAL, EMAIL, getPublicSiteUrl, PHONES } from '../lib/constants'
 
 function phoneToE164Rw(local: string): string {
   const digits = local.replace(/\D/g, '')
@@ -107,14 +107,14 @@ export function Footer() {
                   <NavLink
                     key={to}
                     to={to}
-                    className={({ isActive }) =>
-                      [
-                        'rounded-full border px-3 py-1.5 text-xs font-semibold transition',
-                        isActive
-                          ? 'border-[#F4D03F] bg-[#F4D03F] text-black'
-                          : 'border-white/20 text-white/90 hover:border-[#F4D03F]/70 hover:text-[#F4D03F]',
-                      ].join(' ')
-                    }
+                className={({ isActive }) =>
+                  [
+                    'rounded-full border px-3 py-1.5 text-xs font-medium transition',
+                    isActive
+                      ? 'border-white/35 bg-white/[0.12] text-white'
+                      : 'border-white/15 text-white/75 hover:border-white/30 hover:bg-white/[0.06] hover:text-white',
+                  ].join(' ')
+                }
                   >
                     {label}
                   </NavLink>
@@ -141,9 +141,6 @@ export function Footer() {
             >
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#F4D03F]/90">Registered business</p>
               <p className="font-semibold text-white">{COMPANY_LEGAL}</p>
-              <p>
-                <span className="font-semibold text-[#F4D03F]/90">TIN:</span> {TIN}
-              </p>
               <p>
                 <span className="font-semibold text-[#F4D03F]/90">Phone:</span>{' '}
                 <a href={`tel:${PHONES[0]}`} className="underline-offset-2 hover:underline">

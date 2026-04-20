@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
-import { COMPANY_LEGAL, TIN } from '../lib/constants'
+import { COMPANY_LEGAL } from '../lib/constants'
 
 /** Full-bleed slideshow — your workshop & facility photography + reference atmosphere slide */
+/** Workshop photography only — do not use template/stock hero screenshots with foreign branding or text. */
 const SLIDES = [
   '/site/home-hero-slide-1.png',
   '/site/home-hero-slide-2.png',
   '/site/home-hero-slide-3.png',
-  '/site/home-hero-slide-4.png',
 ] as const
 
 const trustPoints = [
@@ -19,7 +19,7 @@ const trustPoints = [
 const stats = [
   { value: 'Mon–Sat', label: 'Workshop hours' },
   { value: 'Musanze', label: 'Northern Rwanda' },
-  { value: `TIN ${TIN}`, label: 'Registered business' },
+  { value: 'Full service', label: 'Diagnostics to handover' },
 ] as const
 
 const container = {
@@ -133,28 +133,28 @@ export function HomePage() {
             <button
               type="button"
               onClick={() => navigate('/services')}
-              className="inline-flex min-h-[3.25rem] items-center justify-center rounded-full bg-[#0f3d3e] px-10 text-base font-semibold text-white shadow-[0_12px_40px_-12px_rgba(15,61,62,0.9)] ring-1 ring-white/10 transition hover:bg-[#164f50] md:min-h-[3.5rem] md:text-lg"
+              className="jac-btn jac-btn--primary min-h-[3.25rem] px-9 md:min-h-[3.5rem] md:px-10"
             >
               Explore services
-              <span className="ml-2" aria-hidden>
+              <span className="ml-1" aria-hidden>
                 →
               </span>
             </button>
             <button
               type="button"
               onClick={() => navigate('/contact')}
-              className="inline-flex min-h-[3.25rem] items-center justify-center rounded-full border-2 border-white/85 bg-white/95 px-10 text-base font-semibold text-[#0f3d3e] shadow-lg transition hover:bg-white md:min-h-[3.5rem] md:text-lg"
+              className="jac-btn jac-btn--secondary min-h-[3.25rem] px-9 md:min-h-[3.5rem] md:px-10"
             >
               Contact the workshop
             </button>
           </motion.div>
 
-          <motion.p variants={item} className="mt-6 text-sm text-white/65">
+          <motion.p variants={item} className="mt-6 text-sm text-white/60">
             Also visit:{' '}
             <button
               type="button"
               onClick={() => navigate('/blog')}
-              className="font-semibold text-[#F4D03F] underline-offset-4 hover:underline"
+              className="font-sans text-white/75 underline-offset-4 transition hover:text-white hover:underline"
             >
               Blog
             </button>
@@ -162,7 +162,7 @@ export function HomePage() {
             <button
               type="button"
               onClick={() => navigate('/careers')}
-              className="font-semibold text-[#F4D03F] underline-offset-4 hover:underline"
+              className="font-sans text-white/75 underline-offset-4 transition hover:text-white hover:underline"
             >
               Careers
             </button>
@@ -170,7 +170,7 @@ export function HomePage() {
             <button
               type="button"
               onClick={() => navigate('/about')}
-              className="font-semibold text-[#F4D03F] underline-offset-4 hover:underline"
+              className="font-sans text-white/75 underline-offset-4 transition hover:text-white hover:underline"
             >
               About
             </button>

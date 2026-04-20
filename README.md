@@ -1,7 +1,5 @@
 # Junior Auto Clinique ltd — J.A.C
 
-Repository: **junior-auto-clininc-web-**
-
 Single-page web app (React + Vite) with an Express API that stores job/internship applications in Supabase. Authentication uses Supabase Auth on the client; the API verifies admin access with the user JWT and `ADMIN_EMAILS`.
 
 ## Prerequisites
@@ -30,7 +28,7 @@ The API listens on `http://localhost:4000` by default.
 
 - `POST /api/apply` — public; saves an application row.
 - `GET /api/applications` — requires `Authorization: Bearer <Supabase access_token>` and an email listed in `ADMIN_EMAILS`.
-
+ 
 **Application rule:** users must be **logged in** before `POST /api/apply` is accepted (enforced in both frontend and backend).
 
 Production: `npm run build` then `npm start` (runs `node dist/index.js`).

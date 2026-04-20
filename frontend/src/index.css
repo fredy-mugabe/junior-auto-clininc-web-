@@ -104,3 +104,77 @@ textarea {
     transform: translateX(-50%);
   }
 }
+
+/* Classic gold buttons — black type on warm gold (readable on hero + dark bars) */
+.jac-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  border-radius: 9999px;
+  color: #14110a;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.jac-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #051616, 0 0 0 4px rgba(184, 137, 40, 0.85);
+}
+.jac-btn--primary {
+  border: 1px solid rgba(90, 66, 18, 0.55);
+  background: linear-gradient(165deg, #f2e0a8 0%, #d4a93c 38%, #b88928 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.jac-btn--primary:hover {
+  filter: brightness(1.06);
+  border-color: rgba(70, 50, 12, 0.65);
+}
+.jac-btn--secondary {
+  border: 1px solid rgba(74, 54, 14, 0.5);
+  background: linear-gradient(165deg, #e6cf88 0%, #c9a227 48%, #a67c1f 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+.jac-btn--secondary:hover {
+  filter: brightness(1.05);
+  border-color: rgba(60, 44, 10, 0.6);
+}
+.jac-btn--ghost {
+  border: 1px solid rgba(201, 162, 39, 0.45);
+  background: rgba(40, 32, 8, 0.35);
+  color: rgba(255, 248, 220, 0.92);
+}
+.jac-btn--ghost:hover {
+  border-color: rgba(230, 200, 100, 0.55);
+  background: rgba(55, 44, 12, 0.5);
+  color: #fffef8;
+}
+.jac-btn--nav {
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.jac-btn--nav-active {
+  border: 1px solid rgba(90, 66, 18, 0.5);
+  background: linear-gradient(165deg, #f0d78c 0%, #d4a93c 45%, #b88928 100%);
+  color: #14110a;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.jac-btn--nav-idle {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.82);
+}
+.jac-btn--nav-idle:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.95);
+}

@@ -1,25 +1,32 @@
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { Toaster } from 'sonner'
-import { Navbar } from './components/Navbar'
-import { Footer } from './sections/Footer'
-import { Route, Routes } from 'react-router-dom'
+import { SiteLayout } from './layouts/SiteLayout'
 import { HomePage } from './pages/HomePage'
-import { LoginPage } from './pages/LoginPage'
-import { RegisterPage } from './pages/RegisterPage'
-import { AccountPage } from './pages/AccountPage'
+import { AboutPage } from './pages/AboutPage'
+import { ServicesPage } from './pages/ServicesPage'
+import { CareersPage } from './pages/CareersPage'
+import { ContactPage } from './pages/ContactPage'
+import { BlogPage } from './pages/BlogPage'
+import { BlogPostPage } from './pages/BlogPostPage'
 
 function App() {
   return (
-    <div className="min-h-svh bg-gradient-to-b from-brand-cream via-brand-mint to-brand-blush/90">
-      <Navbar />
+    <>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/account" element={<AccountPage />} />
+        <Route element={<SiteLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
+          <Route path="/careers" element={<CareersPage />} />
+          <Route path="/apply" element={<Navigate to="/careers" replace />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
       </Routes>
-      <Footer />
-      <Toaster richColors theme="dark" position="top-center" />
-    </div>
+      <Toaster richColors position="top-center" />
+    </>
   )
 }
 

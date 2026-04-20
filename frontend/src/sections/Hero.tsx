@@ -36,7 +36,7 @@ export function Hero() {
           <img
             src="/branding/logo-mark.png"
             alt=""
-            className="h-9 w-9 rounded-full border-2 border-[#F4D03F]/80 object-cover"
+            className="h-9 w-9 rounded-full border-2 border-emerald-400/45 object-cover"
           />
           <span className="text-sm font-bold tracking-wide text-white">JUNIOR AUTO CLINIQUE ltd</span>
         </motion.div>
@@ -84,7 +84,7 @@ export function Hero() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate('/careers')}
-            className="rounded-2xl bg-[#F4D03F] px-8 py-3.5 text-base font-bold text-black shadow-lg transition hover:brightness-105"
+            className="jac-btn jac-btn--primary !rounded-2xl px-8 py-3.5 text-base"
           >
             Apply for a role
           </motion.button>
@@ -93,7 +93,7 @@ export function Hero() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate('/services')}
-            className="rounded-2xl border-2 border-emerald-400/70 bg-[#051616]/70 px-8 py-3.5 text-base font-bold text-white shadow-md backdrop-blur-sm transition hover:border-emerald-300 hover:bg-[#0a2824]/90"
+            className="jac-btn jac-btn--secondary !rounded-2xl px-8 py-3.5 text-base"
           >
             Our services
           </motion.button>

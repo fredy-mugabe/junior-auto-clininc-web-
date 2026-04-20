@@ -1,6 +1,5 @@
 export const COMPANY_LEGAL = 'JUNIOR AUTO CLINIQUE ltd'
 export const COMPANY_SHORT = 'J.A.C'
-export const TIN = '10732005'
 export const PHONES = ['0784481659'] as const
 export const EMAIL = 'Juniorautoclinic@gmail.com'
 

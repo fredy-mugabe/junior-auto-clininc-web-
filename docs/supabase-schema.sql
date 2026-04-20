@@ -7,7 +7,6 @@ create table if not exists public.applications (
   phone text not null,
   type text not null check (type in ('job', 'internship')),
   message text,
-  cv_path text,
   created_at timestamptz not null default now()
 );
 

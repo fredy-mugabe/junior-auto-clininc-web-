@@ -187,7 +187,7 @@ export function ApplySection() {
             disabled={loading}
             whileHover={{ scale: loading ? 1 : 1.02 }}
             whileTap={{ scale: loading ? 1 : 0.98 }}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#F4D03F] px-6 py-3.5 font-bold text-black shadow-lg transition hover:brightness-105 disabled:opacity-60"
+            className="jac-btn jac-btn--primary w-full gap-2 !rounded-2xl px-6 py-3.5 disabled:opacity-60"
           >
             {loading && (
               <span

@@ -98,7 +98,7 @@ export function Blog() {
 
             <button
               type="button"
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand-green px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-black/30 transition hover:bg-brand-green-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow/60"
+              className="jac-btn jac-btn--primary mt-5 gap-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800/50"
             >
               Read more
               <span aria-hidden>→</span>

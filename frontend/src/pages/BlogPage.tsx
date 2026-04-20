@@ -99,7 +99,7 @@ export function BlogPage() {
                 </p>
                 <Link
                   to={`/blog/${post.slug}`}
-                  className="mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-[#F4D03F] px-5 py-2.5 text-sm font-semibold text-black transition hover:brightness-105"
+                  className="jac-btn jac-btn--primary mt-5 w-fit gap-2 text-sm"
                 >
                   Read more
                   <span aria-hidden>→</span>

@@ -19,8 +19,6 @@ if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
 import cors from 'cors'
 import { body, validationResult } from 'express-validator'
 import { getSupabaseAdmin } from './lib/supabaseAdmin.js'
-import multer from 'multer'
-import crypto from 'node:crypto'
 
 const app = express()
 const port = Number(process.env.PORT) || 4000
@@ -45,20 +43,12 @@ app.use(
 )
 app.use(express.json({ limit: '256kb' }))
 
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: { fileSize: 8 * 1024 * 1024 },
-})
-
-const CV_BUCKET = process.env.CV_BUCKET || 'applications-cv'
-
 app.get('/api/health', (_req: Request, res: Response) => {
   res.json({ ok: true })
 })
 
 app.post(
   '/api/apply',
-  upload.single('cv'),
   [
     body('full_name').trim().isLength({ min: 2, max: 200 }),
     body('email').trim().isEmail(),
@@ -67,70 +57,18 @@ app.post(
     body('message').optional({ values: 'falsy' }).isLength({ max: 5000 }),
   ],
   async (req: Request, res: Response) => {
-    const auth = req.headers.authorization
-    if (!auth?.startsWith('Bearer ')) {
-      return res.status(401).json({ error: 'Please login before applying.' })
-    }
-    const jwt = auth.slice(7)
-
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
     try {
       const supabase = getSupabaseAdmin()
-      const {
-        data: { user },
-        error: authErr,
-      } = await supabase.auth.getUser(jwt)
-      if (authErr || !user) {
-        return res.status(401).json({ error: 'Session expired. Please login again.' })
-      }
-
       const { full_name, email, phone, type, message } = req.body as {
         full_name: string
         email: string
         phone: string
         type: 'job' | 'internship'
         message?: string
-      }
-
-      let cv_path: string | null = null
-      const file = req.file
-      if (file) {
-        const okTypes = new Set([
-          'application/pdf',
-          'application/msword',
-          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        ])
-        if (!okTypes.has(file.mimetype)) {
-          return res.status(400).json({ error: 'CV must be a PDF or Word document.' })
-        }
-
-        // Try to ensure bucket exists (ignore "already exists" errors).
-        await supabase.storage.createBucket(CV_BUCKET, { public: false }).catch(() => undefined)
-
-        const ext =
-          file.mimetype === 'application/pdf'
-            ? 'pdf'
-            : file.mimetype === 'application/msword'
-              ? 'doc'
-              : 'docx'
-        const rand = crypto.randomBytes(8).toString('hex')
-        const userId = user.id
-        cv_path = `${userId}/${Date.now()}-${rand}.${ext}`
-
-        const { error: upErr } = await supabase.storage
-          .from(CV_BUCKET)
-          .upload(cv_path, file.buffer, {
-            contentType: file.mimetype,
-            upsert: false,
-          })
-
-        if (upErr) {
-          console.error(upErr)
-          return res.status(500).json({ error: 'Could not upload CV. Please try again.' })
-        }
       }
       const { data, error } = await supabase
         .from('applications')
@@ -140,7 +78,6 @@ app.post(
           phone,
           type,
           message: message ?? null,
-          cv_path,
         })
         .select('id')
         .single()
