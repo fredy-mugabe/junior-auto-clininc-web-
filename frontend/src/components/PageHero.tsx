@@ -41,7 +41,7 @@ export function PageHero({
       />
       <div className="absolute inset-0 z-[1] shadow-[inset_0_0_240px_rgba(0,0,0,0.5)]" aria-hidden />
 
-      <div className="relative z-10 mx-auto flex min-h-[88dvh] max-w-7xl flex-col justify-center px-5 py-16 md:px-12 md:py-24">
+      <div className="relative z-10 mx-auto flex min-h-[88dvh] max-w-7xl flex-col justify-center px-6 py-20 md:px-12 md:py-28">
         {eyebrow ? (
           <motion.span
             initial={{ opacity: 0, y: 10 }}
@@ -63,7 +63,7 @@ export function PageHero({
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="mt-5 max-w-3xl text-lg leading-relaxed text-white drop-shadow md:text-xl"
+          className="mt-6 max-w-3xl text-lg leading-relaxed text-white drop-shadow md:text-xl"
         >
           {subtitle}
         </motion.p>
@@ -72,12 +72,12 @@ export function PageHero({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.14 }}
-            className="mt-4 max-w-3xl text-base leading-relaxed text-white/95 drop-shadow-sm md:text-lg"
+            className="mt-6 max-w-3xl text-base leading-relaxed text-white/95 drop-shadow-sm md:text-lg"
           >
             {subtitleSecondary}
           </motion.p>
         ) : null}
-        {children ? <div className="mt-8 flex flex-wrap gap-4">{children}</div> : null}
+        {children ? <div className="mt-10 flex flex-wrap gap-5">{children}</div> : null}
       </div>
     </section>
   )

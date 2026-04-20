@@ -27,11 +27,11 @@ export function Hero() {
       />
       <div className="absolute inset-0 z-[1] shadow-[inset_0_0_220px_rgba(0,0,0,0.4)]" aria-hidden />
 
-      <div className="relative z-10 mx-auto flex min-h-[min(82svh,900px)] max-w-7xl flex-col justify-center px-5 py-16 md:px-12 md:py-24">
+      <div className="relative z-10 mx-auto flex min-h-[min(82svh,900px)] max-w-7xl flex-col justify-center px-6 py-20 md:px-12 md:py-28">
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6 inline-flex w-fit items-center gap-3 rounded-full border border-emerald-500/35 bg-black/40 px-4 py-2 pr-5 backdrop-blur-sm"
+          className="mb-8 inline-flex w-fit items-center gap-3 rounded-full border border-emerald-500/35 bg-black/40 px-5 py-3 pr-6 backdrop-blur-sm"
         >
           <img
             src="/branding/logo-mark.png"
@@ -45,7 +45,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
-          className="max-w-4xl text-4xl font-extrabold leading-[1.1] tracking-tight text-white drop-shadow-md md:text-5xl lg:text-6xl"
+          className="max-w-4xl text-4xl font-extrabold leading-[1.12] tracking-tight text-white drop-shadow-md md:text-5xl lg:text-6xl"
         >
           Welcome to JUNIOR AUTO CLINIQUE ltd
         </motion.h1>
@@ -54,7 +54,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="mt-6 max-w-3xl text-lg leading-relaxed text-white drop-shadow md:text-xl"
+          className="mt-8 max-w-3xl text-lg leading-relaxed text-white drop-shadow md:text-xl"
         >
           Your trusted garage for diagnostics, repairs, and maintenance — done professionally, on time,
           and with clear communication. We invest in modern scan tools, organized service bays, and a team
@@ -66,7 +66,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.14 }}
-          className="mt-4 max-w-3xl text-base leading-relaxed text-white/95 drop-shadow-sm md:text-lg"
+          className="mt-6 max-w-3xl text-base leading-relaxed text-white/95 drop-shadow-sm md:text-lg"
         >
           Whether you rely on your car for daily commuting, family travel, or business deliveries, we
           treat every booking with the same discipline: thorough inspection, honest recommendations, and
@@ -77,14 +77,14 @@ export function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.18 }}
-          className="mt-10 flex flex-wrap gap-4"
+          className="mt-12 flex flex-wrap gap-5"
         >
           <motion.button
             type="button"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate('/careers')}
-            className="jac-btn jac-btn--primary !rounded-2xl px-8 py-3.5 text-base"
+            className="jac-btn jac-btn--primary !rounded-2xl px-9 py-4 text-base"
           >
             Apply for a role
           </motion.button>
@@ -93,7 +93,7 @@ export function Hero() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate('/services')}
-            className="jac-btn jac-btn--secondary !rounded-2xl px-8 py-3.5 text-base"
+            className="jac-btn jac-btn--secondary !rounded-2xl px-9 py-4 text-base"
           >
             Our services
           </motion.button>

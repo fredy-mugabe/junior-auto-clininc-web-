@@ -71,7 +71,7 @@ export function HomePage() {
         aria-hidden
       />
 
-      <div className="relative z-10 flex min-h-[100dvh] flex-1 flex-col px-5 pb-10 pt-[5.75rem] sm:px-10 sm:pt-28 md:px-14 md:pt-32 lg:px-20">
+      <div className="relative z-10 flex min-h-[100dvh] flex-1 flex-col px-6 pb-14 pt-[6.25rem] sm:px-10 sm:pb-16 sm:pt-32 md:px-14 md:pt-36 lg:px-20">
         <motion.div
           className="mx-auto flex w-full max-w-[56rem] flex-1 flex-col justify-center"
           variants={container}
@@ -80,7 +80,7 @@ export function HomePage() {
         >
           <motion.div
             variants={item}
-            className="inline-flex max-w-full flex-wrap items-center gap-x-3 gap-y-1 rounded-full border border-white/15 bg-black/45 px-4 py-2.5 text-xs font-medium tracking-wide text-white/95 shadow-lg backdrop-blur-md sm:text-sm"
+            className="inline-flex max-w-full flex-wrap items-center gap-x-4 gap-y-2 rounded-full border border-white/15 bg-black/45 px-5 py-3 text-xs font-medium tracking-wide text-white/95 shadow-lg backdrop-blur-md sm:text-sm"
           >
             <span className="inline-flex items-center gap-2 text-[#F4D03F]">
               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#F4D03F]" aria-hidden />
@@ -98,7 +98,7 @@ export function HomePage() {
 
           <motion.h1
             variants={item}
-            className="font-display-classic mt-8 max-w-5xl text-[2.35rem] leading-[1.12] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)] sm:text-5xl md:text-6xl lg:text-[4.25rem] lg:leading-[1.08]"
+            className="font-display-classic mt-10 max-w-5xl text-[2.35rem] leading-[1.14] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)] sm:text-5xl md:text-6xl lg:text-[4.25rem] lg:leading-[1.1]"
           >
             <span className="block text-white">Automotive care built on</span>
             <span className="mt-2 block bg-gradient-to-r from-[#F4D03F] via-[#f0e6a8] to-[#c8e6d4] bg-clip-text text-transparent drop-shadow-none">
@@ -108,14 +108,14 @@ export function HomePage() {
 
           <motion.p
             variants={item}
-            className="mt-8 max-w-2xl text-base leading-relaxed text-white/92 sm:text-lg md:text-xl"
+            className="mt-10 max-w-2xl text-base leading-relaxed text-white/92 sm:text-lg md:text-xl"
           >
             {COMPANY_LEGAL} welcomes you to a full-service garage where modern diagnostics, careful
             mechanical work, and straight answers come standard — whether you need a warning light
             investigated, a long trip checked, or a fleet kept dependable.
           </motion.p>
 
-          <motion.ul variants={item} className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-2">
+          <motion.ul variants={item} className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:gap-x-10 sm:gap-y-3">
             {trustPoints.map((line) => (
               <li key={line} className="flex items-center gap-2.5 text-sm font-medium text-white/95 md:text-base">
                 <span
@@ -129,11 +129,11 @@ export function HomePage() {
             ))}
           </motion.ul>
 
-          <motion.div variants={item} className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
+          <motion.div variants={item} className="mt-14 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
             <button
               type="button"
               onClick={() => navigate('/services')}
-              className="jac-btn jac-btn--primary min-h-[3.25rem] px-9 md:min-h-[3.5rem] md:px-10"
+              className="jac-btn jac-btn--primary min-h-[3.25rem] px-10 md:min-h-[3.5rem] md:px-12"
             >
               Explore services
               <span className="ml-1" aria-hidden>
@@ -143,13 +143,13 @@ export function HomePage() {
             <button
               type="button"
               onClick={() => navigate('/contact')}
-              className="jac-btn jac-btn--secondary min-h-[3.25rem] px-9 md:min-h-[3.5rem] md:px-10"
+              className="jac-btn jac-btn--secondary min-h-[3.25rem] px-10 md:min-h-[3.5rem] md:px-12"
             >
               Contact the workshop
             </button>
           </motion.div>
 
-          <motion.p variants={item} className="mt-6 text-sm text-white/60">
+          <motion.p variants={item} className="mt-8 text-sm text-white/60">
             Also visit:{' '}
             <button
               type="button"
@@ -181,12 +181,12 @@ export function HomePage() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55, duration: 0.65, ease: [0.22, 1, 0.36, 1] as const }}
-          className="mx-auto mt-auto grid w-full max-w-5xl grid-cols-1 gap-4 sm:grid-cols-3"
+          className="mx-auto mt-auto grid w-full max-w-5xl grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6"
         >
           {stats.map(({ value, label }) => (
             <div
               key={label}
-              className="rounded-2xl border border-white/20 bg-white/[0.12] px-6 py-5 text-center shadow-[0_16px_48px_-20px_rgba(0,0,0,0.5)] backdrop-blur-md"
+              className="rounded-2xl border border-white/20 bg-white/[0.12] px-7 py-6 text-center shadow-[0_16px_48px_-20px_rgba(0,0,0,0.5)] backdrop-blur-md"
             >
               <p className="font-display-classic text-3xl font-semibold text-white md:text-[2rem]">{value}</p>
               <p className="mt-1.5 text-sm font-medium text-white/75">{label}</p>
