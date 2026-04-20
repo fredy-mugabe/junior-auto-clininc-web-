@@ -103,9 +103,8 @@ export function HomePage() {
             <span className="block text-white">Automotive Solutions</span>
             <span className="mt-1.5 block text-white">
               That Drive{' '}
-              <span className="bg-gradient-to-r from-[#d6f3e1] via-[#9de6c2] to-[#67c6a4] bg-clip-text text-transparent drop-shadow-none">
-                Reliable Performance
-              </span>
+              <span className="text-[#1f6a4f] drop-shadow-none">Reliable</span>{' '}
+              <span className="text-[#d4a93c] drop-shadow-none">Performance</span>
             </span>
           </motion.h1>
 
