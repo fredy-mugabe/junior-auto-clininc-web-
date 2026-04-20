@@ -73,14 +73,14 @@ export function HomePage() {
 
       <div className="relative z-10 flex min-h-[100dvh] flex-1 flex-col px-6 pb-14 pt-[6.25rem] sm:px-10 sm:pb-16 sm:pt-32 md:px-14 md:pt-36 lg:px-20">
         <motion.div
-          className="mx-auto flex w-full max-w-[56rem] flex-1 flex-col justify-center"
+          className="mx-auto flex w-full max-w-[58rem] flex-1 flex-col items-center justify-center text-center"
           variants={container}
           initial="hidden"
           animate="show"
         >
           <motion.div
             variants={item}
-            className="inline-flex max-w-full flex-wrap items-center gap-x-4 gap-y-2 rounded-full border border-white/15 bg-black/45 px-5 py-3 text-xs font-medium tracking-wide text-white/95 shadow-lg backdrop-blur-md sm:text-sm"
+            className="inline-flex max-w-full flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-full border border-white/15 bg-black/45 px-5 py-3 text-xs font-medium tracking-wide text-white/95 shadow-lg backdrop-blur-md sm:text-sm"
           >
             <span className="inline-flex items-center gap-2 text-[#F4D03F]">
               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#F4D03F]" aria-hidden />
@@ -98,24 +98,30 @@ export function HomePage() {
 
           <motion.h1
             variants={item}
-            className="font-display-classic mt-10 max-w-5xl text-[2.35rem] leading-[1.14] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)] sm:text-5xl md:text-6xl lg:text-[4.25rem] lg:leading-[1.1]"
+            className="mt-10 max-w-5xl font-sans text-[2.65rem] leading-[1.08] font-black tracking-[-0.02em] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)] sm:text-[3.5rem] md:text-[4.1rem] lg:text-[4.75rem] lg:leading-[1.02]"
           >
-            <span className="block text-white">Automotive care built on</span>
-            <span className="mt-2 block bg-gradient-to-r from-[#F4D03F] via-[#f0e6a8] to-[#c8e6d4] bg-clip-text text-transparent drop-shadow-none">
-              clarity, skill &amp; trust
+            <span className="block text-white">Automotive Solutions</span>
+            <span className="mt-1.5 block text-white">
+              That Drive{' '}
+              <span className="bg-gradient-to-r from-[#d6f3e1] via-[#9de6c2] to-[#67c6a4] bg-clip-text text-transparent drop-shadow-none">
+                Reliable Performance
+              </span>
             </span>
           </motion.h1>
 
           <motion.p
             variants={item}
-            className="mt-10 max-w-2xl text-base leading-relaxed text-white/92 sm:text-lg md:text-xl"
+            className="mt-10 max-w-3xl text-lg leading-relaxed text-white/90 sm:text-xl md:text-[1.35rem]"
           >
             {COMPANY_LEGAL} welcomes you to a full-service garage where modern diagnostics, careful
             mechanical work, and straight answers come standard — whether you need a warning light
             investigated, a long trip checked, or a fleet kept dependable.
           </motion.p>
 
-          <motion.ul variants={item} className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:gap-x-10 sm:gap-y-3">
+          <motion.ul
+            variants={item}
+            className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-10 sm:gap-y-3"
+          >
             {trustPoints.map((line) => (
               <li key={line} className="flex items-center gap-2.5 text-sm font-medium text-white/95 md:text-base">
                 <span
@@ -129,7 +135,10 @@ export function HomePage() {
             ))}
           </motion.ul>
 
-          <motion.div variants={item} className="mt-14 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
+          <motion.div
+            variants={item}
+            className="mt-14 flex flex-col items-center gap-5 sm:flex-row sm:items-center sm:justify-center sm:gap-6"
+          >
             <button
               type="button"
               onClick={() => navigate('/services')}
@@ -149,32 +158,6 @@ export function HomePage() {
             </button>
           </motion.div>
 
-          <motion.p variants={item} className="mt-8 text-sm text-white/60">
-            Also visit:{' '}
-            <button
-              type="button"
-              onClick={() => navigate('/blog')}
-              className="font-sans text-white/75 underline-offset-4 transition hover:text-white hover:underline"
-            >
-              Blog
-            </button>
-            {' · '}
-            <button
-              type="button"
-              onClick={() => navigate('/careers')}
-              className="font-sans text-white/75 underline-offset-4 transition hover:text-white hover:underline"
-            >
-              Careers
-            </button>
-            {' · '}
-            <button
-              type="button"
-              onClick={() => navigate('/about')}
-              className="font-sans text-white/75 underline-offset-4 transition hover:text-white hover:underline"
-            >
-              About
-            </button>
-          </motion.p>
         </motion.div>
 
         <motion.div
