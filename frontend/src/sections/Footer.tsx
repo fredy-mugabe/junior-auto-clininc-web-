@@ -87,9 +87,8 @@ export function Footer() {
                 Precision automotive care
               </p>
               <p className="mt-3 max-w-md text-sm leading-relaxed text-white/75">
-                Search-friendly summary: {COMPANY_LEGAL} is an automotive workshop in Musanze offering car
-                diagnostics, engine repair, brake and suspension service, scheduled maintenance, fleet support,
-                and internship pathways — with clear estimates and documented handovers.
+                {COMPANY_LEGAL} is a professional automotive workshop in Musanze, focused on diagnostics,
+                repairs, preventive maintenance, and reliable customer communication from intake to handover.
               </p>
             </motion.div>
 
@@ -121,13 +120,8 @@ export function Footer() {
                 ))}
               </nav>
               <p className="mt-5 text-sm leading-relaxed text-white/78">
-                Keywords people use when choosing a garage:{' '}
-                <span className="text-white/90">
-                  Musanze car repair, OBD diagnostics Rwanda, genuine parts mindset, brake service, oil change,
-                  suspension alignment, fleet maintenance Musanze, workshop internship Rwanda, trusted mechanic
-                  Musanze
-                </span>
-                . Content on each page expands on how we deliver those services safely and transparently.
+                Explore our service capabilities, operating standards, and workshop updates to understand how we
+                keep vehicles dependable for daily use and long-distance travel.
               </p>
             </motion.div>
 

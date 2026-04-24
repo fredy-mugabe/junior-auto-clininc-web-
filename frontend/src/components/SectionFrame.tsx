@@ -15,7 +15,7 @@ export function SectionFrame({ id, bgUrl, maxWidth = '5xl', className = '', chil
   return (
     <section
       id={id}
-      className={`relative scroll-mt-28 overflow-hidden px-3 py-16 md:px-5 md:py-24 ${className}`}
+      className={`relative scroll-mt-28 overflow-hidden px-4 py-20 md:px-6 md:py-28 ${className}`}
     >
       <div
         className="absolute inset-3 rounded-[2rem] bg-cover bg-center md:inset-5 md:rounded-[2.5rem]"
@@ -32,7 +32,7 @@ export function SectionFrame({ id, bgUrl, maxWidth = '5xl', className = '', chil
       />
       <div className="pointer-events-none absolute inset-3 rounded-[2rem] ring-1 ring-emerald-400/20 md:inset-5 md:rounded-[2.5rem]" />
 
-      <div className={`relative z-10 mx-auto w-full ${max} px-4 py-6 md:px-6 md:py-10`}>{children}</div>
+      <div className={`relative z-10 mx-auto w-full ${max} px-5 py-8 md:px-8 md:py-12`}>{children}</div>
     </section>
   )
 }

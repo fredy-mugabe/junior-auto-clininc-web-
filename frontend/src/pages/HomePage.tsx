@@ -103,14 +103,14 @@ export function HomePage() {
             <span className="block text-white">Automotive Solutions</span>
             <span className="mt-1.5 block text-white">
               That Drive{' '}
-              <span className="text-[#1f6a4f] drop-shadow-none">Reliable</span>{' '}
+              <span className="text-[#2f8a62] drop-shadow-none">Reliable</span>{' '}
               <span className="text-[#d4a93c] drop-shadow-none">Performance</span>
             </span>
           </motion.h1>
 
           <motion.p
             variants={item}
-            className="mt-10 max-w-3xl text-lg leading-relaxed text-white/90 sm:text-xl md:text-[1.35rem]"
+            className="mt-10 max-w-3xl text-lg leading-relaxed text-white/90 sm:text-xl md:text-[1.28rem]"
           >
             {COMPANY_LEGAL} welcomes you to a full-service garage where modern diagnostics, careful
             mechanical work, and straight answers come standard — whether you need a warning light

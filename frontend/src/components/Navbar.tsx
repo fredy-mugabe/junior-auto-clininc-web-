@@ -22,11 +22,11 @@ export function Navbar({ overHero = false }: NavbarProps) {
   return (
     <header
       className={[
-        'z-50 px-4 pt-2 pb-2 md:px-8 md:pt-3 md:pb-3',
+        'z-50 px-4 pt-3 pb-2 md:px-8 md:pt-4 md:pb-3',
         overHero ? 'pointer-events-none absolute inset-x-0 top-0' : 'relative',
       ].join(' ')}
     >
-      <div className="pointer-events-auto mx-auto flex w-full max-w-[min(100%,1830px)] items-center justify-between gap-3 rounded-2xl border border-white/15 bg-gradient-to-r from-black/25 via-[#0b1d18]/20 to-black/25 px-4 py-3 shadow-[0_12px_40px_-18px_rgba(0,0,0,0.8)] backdrop-blur-2xl md:px-6">
+      <div className="pointer-events-auto mx-auto flex w-full max-w-[min(100%,1830px)] items-center justify-between gap-3 rounded-2xl border border-white/12 bg-gradient-to-r from-black/35 via-[#0b1d18]/30 to-black/35 px-4 py-3.5 shadow-[0_14px_42px_-20px_rgba(0,0,0,0.85)] backdrop-blur-2xl md:px-6">
         <NavLink
           to="/"
           className="flex min-w-0 shrink items-center gap-2 rounded-lg outline-none ring-emerald-400/35 focus-visible:ring-2 sm:gap-3"
@@ -38,12 +38,12 @@ export function Navbar({ overHero = false }: NavbarProps) {
             alt=""
             className="h-9 w-9 shrink-0 rounded-full border-2 border-emerald-400/45 object-cover md:h-11 md:w-11"
           />
-          <span className="brand-script min-w-0 truncate text-sm font-bold tracking-wide text-white drop-shadow-md sm:text-base md:text-lg">
+          <span className="brand-script min-w-0 truncate text-sm font-semibold tracking-[0.015em] text-white/95 drop-shadow-md sm:text-base md:text-[1.02rem]">
             JUNIOR AUTO CLINIQUE ltd
           </span>
         </NavLink>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-1.5 lg:flex" aria-label="Primary">
           {links.map(({ to, label }) => (
             <NavLink
               key={to}
