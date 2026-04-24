@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
+import { easeOutExpo } from '../lib/motion'
 
 type Props = {
   bgUrl: string
@@ -46,6 +47,7 @@ export function PageHero({
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.36, ease: easeOutExpo }}
             className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-500/35 bg-black/35 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#F4D03F]"
           >
             {eyebrow}
@@ -54,7 +56,7 @@ export function PageHero({
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.05 }}
+          transition={{ delay: 0.04, duration: 0.48, ease: easeOutExpo }}
           className="max-w-4xl text-4xl font-extrabold leading-tight tracking-tight text-white drop-shadow-md md:text-5xl lg:text-6xl"
         >
           {title}
@@ -62,7 +64,7 @@ export function PageHero({
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          transition={{ delay: 0.08, duration: 0.42, ease: easeOutExpo }}
           className="mt-6 max-w-3xl text-lg leading-relaxed text-white drop-shadow md:text-xl"
         >
           {subtitle}
@@ -71,7 +73,7 @@ export function PageHero({
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.14 }}
+            transition={{ delay: 0.12, duration: 0.42, ease: easeOutExpo }}
             className="mt-6 max-w-3xl text-base leading-relaxed text-white/95 drop-shadow-sm md:text-lg"
           >
             {subtitleSecondary}

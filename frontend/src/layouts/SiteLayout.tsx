@@ -4,18 +4,19 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { Navbar } from '../components/Navbar'
 import { PageFrame } from '../components/PageFrame'
 import { Footer } from '../sections/Footer'
+import { easeOutExpo } from '../lib/motion'
 
 const pageVariants = {
-  initial: { opacity: 0, y: 14 },
+  initial: { opacity: 0, y: 8 },
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.34, ease: easeOutExpo },
   },
   exit: {
     opacity: 0,
-    y: -10,
-    transition: { duration: 0.22 },
+    y: -6,
+    transition: { duration: 0.2, ease: easeOutExpo },
   },
 }
 

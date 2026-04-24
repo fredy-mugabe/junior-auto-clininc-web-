@@ -1,12 +1,12 @@
 /**
- * Shared Framer Motion presets — spring-based entrances, staggers, and hovers
- * for a cohesive, polished feel across the site.
+ * Shared Framer Motion presets tuned for professional, understated motion:
+ * subtle distance, smoother easing, and restrained timing.
  */
 
 export const spring = {
-  soft: { type: 'spring' as const, stiffness: 380, damping: 34, mass: 0.88 },
-  snappy: { type: 'spring' as const, stiffness: 520, damping: 38 },
-  gentle: { type: 'spring' as const, stiffness: 260, damping: 30 },
+  soft: { type: 'spring' as const, stiffness: 260, damping: 30, mass: 0.95 },
+  snappy: { type: 'spring' as const, stiffness: 360, damping: 32 },
+  gentle: { type: 'spring' as const, stiffness: 200, damping: 28 },
 } as const
 
 /** Smooth cubic-bezier for rare tween-only cases */
@@ -18,47 +18,46 @@ export const viewportSection = { once: true, margin: '-60px' as const, amount: 0
 export const heroContainer = {
   hidden: {},
   show: {
-    transition: { staggerChildren: 0.11, delayChildren: 0.14 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
   },
 }
 
 export const heroItem = {
-  hidden: { opacity: 0, y: 36, scale: 0.94 },
+  hidden: { opacity: 0, y: 18 },
   show: {
     opacity: 1,
     y: 0,
-    scale: 1,
-    transition: spring.soft,
+    transition: { duration: 0.48, ease: easeOutExpo },
   },
 }
 
-/** Hero headline: soft blur lift (single element — keeps cost low) */
+/** Hero headline: restrained reveal for premium feel */
 export const heroHeadline = {
-  hidden: { opacity: 0, y: 40, filter: 'blur(12px)' },
+  hidden: { opacity: 0, y: 20, filter: 'blur(6px)' },
   show: {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: { ...spring.soft, delay: 0.02 },
+    transition: { duration: 0.56, ease: easeOutExpo, delay: 0.02 },
   },
 }
 
 export const heroSubline = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 14 },
   show: {
     opacity: 1,
     y: 0,
-    transition: spring.soft,
+    transition: { duration: 0.46, ease: easeOutExpo },
   },
 }
 
 /** Section cards / copy blocks (scroll into view) */
 export function sectionReveal(delay = 0) {
   return {
-    initial: { opacity: 0, y: 32, scale: 0.98 },
-    whileInView: { opacity: 1, y: 0, scale: 1 },
+    initial: { opacity: 0, y: 18 },
+    whileInView: { opacity: 1, y: 0 },
     viewport: viewportSection,
-    transition: { ...spring.soft, delay },
+    transition: { duration: 0.46, ease: easeOutExpo, delay },
   } as const
 }
 
@@ -71,12 +70,12 @@ export const sectionHeaderContainer = {
 }
 
 export const sectionHeaderItem = {
-  hidden: { opacity: 0, y: 18, filter: 'blur(6px)' },
+  hidden: { opacity: 0, y: 14, filter: 'blur(4px)' },
   show: {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: spring.soft,
+    transition: { duration: 0.44, ease: easeOutExpo },
   },
 }
 
@@ -85,17 +84,16 @@ export const listContainer = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.13, delayChildren: 0.06 },
+    transition: { staggerChildren: 0.09, delayChildren: 0.04 },
   },
 }
 
 export const listItem = {
-  hidden: { opacity: 0, y: 28, scale: 0.96 },
+  hidden: { opacity: 0, y: 18 },
   show: {
     opacity: 1,
     y: 0,
-    scale: 1,
-    transition: spring.soft,
+    transition: { duration: 0.46, ease: easeOutExpo },
   },
 }
 
@@ -108,23 +106,23 @@ export const menuContainer = {
 }
 
 export const menuItem = {
-  hidden: { opacity: 0, x: -16 },
-  show: { opacity: 1, x: 0, transition: spring.soft },
+  hidden: { opacity: 0, x: -10 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.34, ease: easeOutExpo } },
 }
 
 /** Auth / account page shell */
 export function pageEnter(delay = 0) {
   return {
-    initial: { opacity: 0, y: 22, scale: 0.99 },
-    animate: { opacity: 1, y: 0, scale: 1 },
-    transition: { ...spring.soft, delay },
+    initial: { opacity: 0, y: 12 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.4, ease: easeOutExpo, delay },
   } as const
 }
 
 /** Card hover — lift + slight scale */
-export const cardHover = { y: -8, scale: 1.015, transition: spring.snappy }
-export const cardHoverLight = { y: -5, transition: spring.snappy }
+export const cardHover = { y: -4, scale: 1.008, transition: spring.snappy }
+export const cardHoverLight = { y: -3, transition: spring.snappy }
 
 /** Primary CTA press */
-export const tapSquish = { scale: 0.97, transition: spring.snappy }
-export const hoverLift = { scale: 1.04, y: -2, transition: spring.snappy }
+export const tapSquish = { scale: 0.985, transition: spring.snappy }
+export const hoverLift = { scale: 1.015, y: -1, transition: spring.snappy }

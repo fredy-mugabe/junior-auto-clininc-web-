@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { GARAGE_IMAGES } from '../lib/garageImages'
+import { easeOutExpo } from '../lib/motion'
 
 export function Hero() {
   const navigate = useNavigate()
@@ -31,6 +32,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.38, ease: easeOutExpo }}
           className="mb-8 inline-flex w-fit items-center gap-3 rounded-full border border-emerald-500/35 bg-black/40 px-5 py-3 pr-6 backdrop-blur-sm"
         >
           <img
@@ -44,7 +46,7 @@ export function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.05 }}
+          transition={{ delay: 0.04, duration: 0.5, ease: easeOutExpo }}
           className="max-w-4xl text-4xl font-extrabold leading-[1.12] tracking-tight text-white drop-shadow-md md:text-5xl lg:text-6xl"
         >
           Welcome to JUNIOR AUTO CLINIQUE ltd
@@ -53,7 +55,7 @@ export function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          transition={{ delay: 0.08, duration: 0.44, ease: easeOutExpo }}
           className="mt-8 max-w-3xl text-lg leading-relaxed text-white drop-shadow md:text-xl"
         >
           Your trusted garage for diagnostics, repairs, and maintenance — done professionally, on time,
@@ -65,7 +67,7 @@ export function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.14 }}
+          transition={{ delay: 0.12, duration: 0.42, ease: easeOutExpo }}
           className="mt-6 max-w-3xl text-base leading-relaxed text-white/95 drop-shadow-sm md:text-lg"
         >
           Whether you rely on your car for daily commuting, family travel, or business deliveries, we
@@ -76,7 +78,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.18 }}
+          transition={{ delay: 0.16, duration: 0.4, ease: easeOutExpo }}
           className="mt-12 flex flex-wrap gap-5"
         >
           <motion.button

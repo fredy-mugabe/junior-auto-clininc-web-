@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { COMPANY_LEGAL } from '../lib/constants'
+import { heroContainer, heroHeadline, heroItem, heroSubline } from '../lib/motion'
 
 /** Full-bleed slideshow — your workshop & facility photography + reference atmosphere slide */
 /** Workshop photography only — do not use template/stock hero screenshots with foreign branding or text. */
@@ -21,23 +22,6 @@ const stats = [
   { value: 'Musanze', label: 'Northern Rwanda' },
   { value: 'Full service', label: 'Diagnostics to handover' },
 ] as const
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.09, delayChildren: 0.12 },
-  },
-}
-
-const item = {
-  hidden: { opacity: 0, y: 22 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
-  },
-}
 
 export function HomePage() {
   const navigate = useNavigate()
@@ -74,12 +58,12 @@ export function HomePage() {
       <div className="relative z-10 flex min-h-[100dvh] flex-1 flex-col px-6 pb-14 pt-[6.25rem] sm:px-10 sm:pb-16 sm:pt-32 md:px-14 md:pt-36 lg:px-20">
         <motion.div
           className="mx-auto flex w-full max-w-[58rem] flex-1 flex-col items-center justify-center text-center"
-          variants={container}
+          variants={heroContainer}
           initial="hidden"
           animate="show"
         >
           <motion.div
-            variants={item}
+            variants={heroItem}
             className="inline-flex max-w-full flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-full border border-white/15 bg-black/45 px-5 py-3 text-xs font-medium tracking-wide text-white/95 shadow-lg backdrop-blur-md sm:text-sm"
           >
             <span className="inline-flex items-center gap-2 text-[#F4D03F]">
@@ -97,7 +81,7 @@ export function HomePage() {
           </motion.div>
 
           <motion.h1
-            variants={item}
+            variants={heroHeadline}
             className="mt-10 max-w-5xl font-sans text-[2.65rem] leading-[1.08] font-black tracking-[-0.02em] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)] sm:text-[3.5rem] md:text-[4.1rem] lg:text-[4.75rem] lg:leading-[1.02]"
           >
             <span className="block text-white">Automotive Solutions</span>
@@ -109,7 +93,7 @@ export function HomePage() {
           </motion.h1>
 
           <motion.p
-            variants={item}
+            variants={heroSubline}
             className="mt-10 max-w-3xl text-lg leading-relaxed text-white/90 sm:text-xl md:text-[1.28rem]"
           >
             {COMPANY_LEGAL} welcomes you to a full-service garage where modern diagnostics, careful
@@ -118,7 +102,7 @@ export function HomePage() {
           </motion.p>
 
           <motion.ul
-            variants={item}
+            variants={heroItem}
             className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-10 sm:gap-y-3"
           >
             {trustPoints.map((line) => (
@@ -135,7 +119,7 @@ export function HomePage() {
           </motion.ul>
 
           <motion.div
-            variants={item}
+            variants={heroItem}
             className="mt-16 flex flex-col items-center gap-8 sm:flex-row sm:items-center sm:justify-center sm:gap-12"
           >
             <button
@@ -162,7 +146,7 @@ export function HomePage() {
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55, duration: 0.65, ease: [0.22, 1, 0.36, 1] as const }}
+          transition={{ delay: 0.32, duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
           className="mx-auto mt-20 grid w-full max-w-5xl grid-cols-1 gap-6 sm:mt-24 sm:grid-cols-3 sm:gap-8"
         >
           {stats.map(({ value, label }) => (
