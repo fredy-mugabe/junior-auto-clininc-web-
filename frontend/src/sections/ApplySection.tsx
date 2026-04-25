@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { toast } from 'sonner'
 import { IconClipboard } from '../components/ClassicIcons'
 import { COMPANY_LEGAL, getApiUrl } from '../lib/constants'
+import { hoverLift, sectionReveal, tapSquish } from '../lib/motion'
 
 type ApplyType = 'internship' | 'job'
 
@@ -76,15 +77,11 @@ export function ApplySection() {
     'mt-1 w-full rounded-xl border border-emerald-500/30 bg-black/35 px-4 py-3 text-white placeholder:text-white/40 outline-none ring-emerald-500/30 focus:ring-2'
 
   return (
-    <section className="px-4 py-16 md:px-8 md:py-24">
+    <section className="jac-section-band px-5 py-16 md:px-8 md:py-24">
       <div className="mx-auto max-w-2xl">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
+        <motion.div {...sectionReveal()}>
           <div className="flex items-center gap-3">
-            <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#F4D03F]/35 text-[#F4D03F]">
+            <span className="jac-icon-tile h-12 w-12 rounded-xl">
               <IconClipboard className="h-6 w-6" />
             </span>
             <h2 className="text-3xl font-bold text-white md:text-4xl">Application form</h2>
@@ -102,12 +99,10 @@ export function ApplySection() {
         </motion.div>
 
         <motion.form
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          {...sectionReveal(0.05)}
           viewport={{ once: true }}
-          transition={{ delay: 0.05 }}
           onSubmit={onSubmit}
-          className="mt-10 space-y-5 rounded-2xl border border-emerald-500/25 bg-[#051616]/92 p-6 shadow-xl md:p-8"
+          className="jac-surface mt-10 space-y-5 p-6 md:p-8"
         >
           <div>
             <label htmlFor="full_name" className="block text-sm font-semibold text-white/90">
@@ -185,8 +180,8 @@ export function ApplySection() {
           <motion.button
             type="submit"
             disabled={loading}
-            whileHover={{ scale: loading ? 1 : 1.02 }}
-            whileTap={{ scale: loading ? 1 : 0.98 }}
+            whileHover={loading ? undefined : hoverLift}
+            whileTap={loading ? undefined : tapSquish}
             className="jac-btn jac-btn--primary w-full gap-2 !rounded-2xl px-6 py-3.5 disabled:opacity-60"
           >
             {loading && (

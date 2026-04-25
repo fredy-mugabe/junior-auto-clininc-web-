@@ -1,58 +1,42 @@
 import { motion } from 'framer-motion'
 import { IconClock, IconMail, IconMapPin, IconPhone } from '../components/ClassicIcons'
+import { MarketingHero } from '../components/MarketingHero'
 import { COMPANY_LEGAL, EMAIL, PHONES } from '../lib/constants'
+import { listContainer, listItem, sectionReveal } from '../lib/motion'
 
 export function ContactPage() {
   return (
     <>
-      <motion.section
-        className="relative overflow-hidden rounded-none px-4 py-16 md:px-8 md:py-24"
-        initial={{ opacity: 0, y: 22 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-[#051616] via-[#08221e] to-[#051616]" aria-hidden />
-        <div className="relative z-10 mx-auto max-w-7xl">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#F4D03F]">Contact</p>
-          <h1 className="mt-3 max-w-4xl text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">
-            Contact & support
-          </h1>
-          <p className="mt-5 max-w-3xl text-lg leading-relaxed text-white/92 md:text-xl">
-            Reach out for service bookings, diagnostics questions, fleet partnerships, or career information.
-          </p>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-white/80 md:text-lg">
-            For the fastest reply, call during opening hours or email with your vehicle details in the
-            subject line. If you are coordinating a fleet, mention approximate unit count and whether you
-            need on-site pickup or workshop-only service.
-          </p>
-        </div>
-      </motion.section>
+      <MarketingHero eyebrow="Contact" title="Contact & support">
+        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/90 md:text-xl">
+          Reach out for service bookings, diagnostics questions, fleet partnerships, or career information.
+        </p>
+        <p className="mt-4 max-w-3xl text-base leading-relaxed text-white/80 md:text-lg">
+          For the fastest reply, call during opening hours or email with your vehicle details in the subject
+          line. If you are coordinating a fleet, mention approximate unit count and whether you need on-site
+          pickup or workshop-only service.
+        </p>
+      </MarketingHero>
 
-      <motion.section
-        className="px-4 py-16 md:px-8 md:py-24"
-        initial={{ opacity: 0, y: 18 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.45, delay: 0.05, ease: [0.22, 1, 0.36, 1] as const }}
-      >
-        <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <motion.article
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="rounded-2xl border border-emerald-500/30 bg-[#051616]/80 p-7 shadow-xl backdrop-blur-md"
-          >
+      <motion.section className="px-5 py-16 md:px-8 md:py-24" {...sectionReveal()}>
+        <motion.div
+          variants={listContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-40px' }}
+          className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3"
+        >
+          <motion.article variants={listItem} className="jac-surface p-7">
             <div className="flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#F4D03F]/35 text-[#F4D03F]">
+              <span className="jac-icon-tile h-11 w-11">
                 <IconPhone className="h-5 w-5" />
               </span>
               <h2 className="text-2xl font-bold text-white">Workshop contacts</h2>
             </div>
             <p className="mt-4 leading-relaxed text-white/88">
               Use the details below for general enquiries, booking requests, and follow-up after a visit.
-              When you email, include your vehicle make and model plus a short description of the issue —
-              it helps us route your message faster.
+              When you email, include your vehicle make and model plus a short description of the issue — it
+              helps us route your message faster.
             </p>
             <p className="mt-4 font-semibold text-white">{COMPANY_LEGAL}</p>
             <p className="mt-3 flex items-center gap-2 text-white/85">
@@ -79,42 +63,30 @@ export function ContactPage() {
             </div>
           </motion.article>
 
-          <motion.article
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 }}
-            viewport={{ once: true }}
-            className="rounded-2xl border border-emerald-500/30 bg-[#051616]/80 p-7 shadow-xl backdrop-blur-md"
-          >
+          <motion.article variants={listItem} className="jac-surface p-7">
             <div className="flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#F4D03F]/35 text-[#F4D03F]">
+              <span className="jac-icon-tile h-11 w-11">
                 <IconClock className="h-5 w-5" />
               </span>
               <h2 className="text-2xl font-bold text-white">Hours & response</h2>
             </div>
             <p className="mt-4 leading-relaxed text-white/88">
               Regular hours are listed below; outside those times we may still offer limited emergency
-              support depending on capacity. For non-urgent questions, email often gets you a written
-              record you can refer to later.
+              support depending on capacity. For non-urgent questions, email often gets you a written record
+              you can refer to later.
             </p>
             <p className="mt-4 text-white/85">Monday - Saturday: 07:30 - 19:00</p>
             <p className="mt-2 text-white/85">Sunday: Emergency support only</p>
             <p className="mt-4 leading-relaxed text-white/85">
-              Typical email response time: within two business hours during workshop operating time. If you
-              do not hear back, please call — occasionally messages are filtered or require an attachment
-              you               forgot to include.
+              Typical email response time: within two business hours during workshop operating time. If you do
+              not hear back, please call — occasionally messages are filtered or require an attachment you
+              forgot to include.
             </p>
           </motion.article>
 
-          <motion.article
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            viewport={{ once: true }}
-            className="rounded-2xl border border-emerald-500/30 bg-[#051616]/80 p-7 shadow-xl backdrop-blur-md md:col-span-2 lg:col-span-1"
-          >
+          <motion.article variants={listItem} className="jac-surface p-7 md:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#F4D03F]/35 text-[#F4D03F]">
+              <span className="jac-icon-tile h-11 w-11">
                 <IconMapPin className="h-5 w-5" />
               </span>
               <h2 className="text-2xl font-bold text-white">Visit Musanze</h2>
@@ -129,7 +101,7 @@ export function ContactPage() {
               arrive so we can keep the yard safe for pedestrians and heavy equipment.
             </p>
           </motion.article>
-        </div>
+        </motion.div>
       </motion.section>
     </>
   )

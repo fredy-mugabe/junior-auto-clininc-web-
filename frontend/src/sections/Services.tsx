@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { IconEngine, IconGauge, IconSearch } from '../components/ClassicIcons'
+import { cardHoverLight, listContainer, listItem } from '../lib/motion'
 
 const items = [
   {
@@ -18,19 +19,6 @@ const items = [
     Icon: IconGauge,
   },
 ] as const
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-}
-
-const itemMotion = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0 },
-}
 
 export function Services() {
   return (
@@ -57,7 +45,7 @@ export function Services() {
         </p>
 
         <motion.ul
-          variants={container}
+          variants={listContainer}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-40px' }}
@@ -66,9 +54,9 @@ export function Services() {
           {items.map(({ title, desc, Icon }) => (
             <motion.li
               key={title}
-              variants={itemMotion}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="jac-card p-6 transition hover:ring-emerald-400/35"
+              variants={listItem}
+              whileHover={cardHoverLight}
+              className="jac-surface p-6 transition hover:ring-emerald-400/35"
             >
               <span
                 className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#F4D03F]/35 text-[#F4D03F]"

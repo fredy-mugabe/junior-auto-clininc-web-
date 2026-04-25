@@ -2,6 +2,7 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { IconBookmark, IconNotebook, IconSparkle } from '../components/ClassicIcons'
 import { getBlogPostBySlug } from '../content/blogPosts'
+import { pageEnter } from '../lib/motion'
 
 function formatDate(value: string) {
   const date = new Date(value)
@@ -18,9 +19,9 @@ export function BlogPostPage() {
   }
 
   return (
-    <article className="px-4 py-12 md:px-8 md:py-16">
+    <article className="px-5 py-14 md:px-8 md:py-20">
       <div className="mx-auto max-w-3xl">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+        <motion.div {...pageEnter()}>
           <Link
             to="/blog"
             className="inline-flex items-center gap-2 text-sm font-semibold text-[#F4D03F] underline-offset-2 hover:underline"
@@ -28,7 +29,7 @@ export function BlogPostPage() {
             <IconNotebook className="h-4 w-4" />
             ← Back to blog
           </Link>
-          <div className="mt-6 flex items-center gap-3 rounded-xl border border-[#F4D03F]/25 bg-black/25 px-4 py-3 text-[#F4D03F]">
+          <div className="jac-surface mt-6 flex items-center gap-3 border-[#F4D03F]/30 px-4 py-3 text-[#F4D03F]">
             <IconBookmark className="h-5 w-5 shrink-0" />
             <span className="text-xs font-semibold uppercase tracking-[0.15em]">Workshop article</span>
           </div>
@@ -44,12 +45,7 @@ export function BlogPostPage() {
           <p className="mt-4 text-lg leading-relaxed text-white/85">{post.excerpt}</p>
         </motion.div>
 
-        <motion.div
-          className="jac-card mt-10 space-y-5 p-6 md:p-8"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.06 }}
-        >
+        <motion.div className="jac-surface mt-10 space-y-5 p-6 md:p-8" {...pageEnter(0.06)}>
           {post.paragraphs.map((p, i) => (
             <p key={i} className="leading-relaxed text-white/88">
               {p}
@@ -57,13 +53,8 @@ export function BlogPostPage() {
           ))}
         </motion.div>
 
-        <motion.aside
-          className="mt-10 flex gap-4 rounded-2xl border border-emerald-500/30 bg-[#051616]/70 p-5 backdrop-blur-md"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.12 }}
-        >
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#F4D03F]/35 text-[#F4D03F]">
+        <motion.aside className="jac-surface mt-10 flex gap-4 p-5" {...pageEnter(0.12)}>
+          <span className="jac-icon-tile h-10 w-10 shrink-0 rounded-lg">
             <IconSparkle className="h-5 w-5" />
           </span>
           <div>

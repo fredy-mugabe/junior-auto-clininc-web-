@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
+import { easeOutExpo } from '../lib/motion'
 
 type Props = {
   bgUrl: string
@@ -35,10 +36,10 @@ export function StockSectionBackdrop({
       <div className="absolute inset-0 z-[1] shadow-[inset_0_0_200px_rgba(0,0,0,0.36)]" aria-hidden />
       <motion.div
         className="relative z-10"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
+        transition={{ duration: 0.48, ease: easeOutExpo }}
       >
         {children}
       </motion.div>

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { IconAward, IconShield, IconUsers, IconWrench } from '../components/ClassicIcons'
 import { COMPANY_LEGAL } from '../lib/constants'
 import { GARAGE_IMAGES } from '../lib/garageImages'
+import { fadeUpSoft } from '../lib/motion'
 
 const pillars = [
   { label: 'Safety culture', Icon: IconShield },
@@ -10,18 +11,11 @@ const pillars = [
   { label: 'Recognized standards', Icon: IconAward },
 ] as const
 
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.5 },
-}
-
 export function About() {
   return (
     <section id="about" className="scroll-mt-24 px-4 py-16 md:px-8 md:py-24">
       <div className="mx-auto max-w-7xl">
-        <motion.div {...fadeUp}>
+        <motion.div {...fadeUpSoft()}>
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">About us</h2>
           <p className="mt-4 max-w-3xl text-lg leading-relaxed text-white/85">
             {COMPANY_LEGAL} is a large, modern garage built for precision work, transparent communication,
@@ -36,17 +30,13 @@ export function About() {
           </p>
         </motion.div>
 
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.5, delay: 0.04 }}
-          className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
-        >
+        <motion.div {...fadeUpSoft(0.04)} className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {pillars.map(({ label, Icon }) => (
             <div
               key={label}
-              className="flex items-center gap-3 rounded-2xl border border-emerald-500/25 bg-[#051616]/50 px-4 py-3 text-sm font-semibold text-white/90"
+              className="jac-surface flex items-center gap-3 px-4 py-3 text-sm font-semibold text-white/90"
             >
-              <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#F4D03F]/30 text-[#F4D03F]">
+              <span className="jac-icon-tile h-10 w-10 rounded-lg">
                 <Icon className="h-5 w-5" />
               </span>
               {label}
@@ -55,11 +45,7 @@ export function About() {
         </motion.div>
 
         <div className="mt-12 grid gap-10 md:grid-cols-2 md:items-center">
-          <motion.div
-            {...fadeUp}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="space-y-5 text-white/85"
-          >
+          <motion.div {...fadeUpSoft(0.05)} className="space-y-5 text-white/85">
             <p className="leading-relaxed">
               We combine up-to-date equipment with experienced technicians to keep your vehicle safe,
               efficient, and road-ready. From routine maintenance to complex engine and electrical work, we
@@ -74,11 +60,7 @@ export function About() {
             </p>
           </motion.div>
 
-          <motion.div
-            {...fadeUp}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="grid grid-cols-2 gap-4"
-          >
+          <motion.div {...fadeUpSoft(0.1)} className="grid grid-cols-2 gap-4">
             <img
               src={GARAGE_IMAGES.aboutGridMechanic}
               alt="Mechanic working on a vehicle"

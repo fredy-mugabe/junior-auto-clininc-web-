@@ -11,6 +11,7 @@ import { StockSectionBackdrop } from '../components/StockSectionBackdrop'
 import { About } from '../sections/About'
 import { getGoogleMapsEmbedSrc } from '../lib/constants'
 import { GARAGE_IMAGES } from '../lib/garageImages'
+import { listContainer, listItem, sectionReveal } from '../lib/motion'
 
 const highlights = [
   {
@@ -65,18 +66,17 @@ export function AboutPage() {
         subtitleSecondary="Whether you are visiting for a warning light, a pre-trip check, or a long-term maintenance plan, our team focuses on consistency — the same standards on busy days and quiet ones — so you can book with confidence and recommend us to family or colleagues without hesitation."
       />
 
-      <section className="border-y border-emerald-500/20 bg-[#051616]/55 px-4 py-12 md:px-8">
-        <div className="mx-auto grid max-w-7xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {highlights.map(({ title, blurb, Icon }, i) => (
-            <motion.div
-              key={title}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.06 }}
-              viewport={{ once: true }}
-              className="flex gap-4 rounded-2xl border border-emerald-500/25 bg-black/25 p-5 backdrop-blur-sm"
-            >
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#F4D03F]/35 bg-[#051616]/80 text-[#F4D03F]">
+      <section className="jac-section-band px-5 py-12 md:px-8">
+        <motion.div
+          variants={listContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-40px' }}
+          className="mx-auto grid max-w-7xl gap-8 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {highlights.map(({ title, blurb, Icon }) => (
+            <motion.div key={title} variants={listItem} className="jac-surface flex gap-4 p-5">
+              <span className="jac-icon-tile h-12 w-12 shrink-0 rounded-xl">
                 <Icon className="h-6 w-6" />
               </span>
               <div>
@@ -85,19 +85,14 @@ export function AboutPage() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       <About />
 
       <StockSectionBackdrop bgUrl={GARAGE_IMAGES.contentAbout} className="py-16 md:py-24">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 md:grid-cols-2 md:items-stretch md:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="rounded-2xl border border-emerald-500/30 bg-[#051616]/80 p-7 shadow-xl backdrop-blur-md"
-          >
+          <motion.div {...sectionReveal()} className="jac-surface p-7">
             <h3 className="text-2xl font-bold text-white">Our mission</h3>
             <p className="mt-4 leading-relaxed text-white/88">
               Our mission is to deliver dependable, modern automotive service while investing in people —
@@ -118,7 +113,7 @@ export function AboutPage() {
             <ul className="mt-6 space-y-3 text-white/85">
               {values.map(({ text, Icon }) => (
                 <li key={text} className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-emerald-500/35 text-[#F4D03F]">
+                  <span className="jac-icon-tile mt-0.5 h-9 w-9 shrink-0 rounded-lg text-[#F4D03F]">
                     <Icon className="h-5 w-5" />
                   </span>
                   <span className="leading-relaxed">{text}</span>
@@ -128,11 +123,8 @@ export function AboutPage() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 }}
-            viewport={{ once: true }}
-            className="flex min-h-[280px] flex-col overflow-hidden rounded-2xl border border-emerald-500/30 bg-[#051616]/80 shadow-xl backdrop-blur-md md:min-h-0"
+            {...sectionReveal(0.05)}
+            className="jac-surface flex min-h-[280px] flex-col overflow-hidden md:min-h-0"
             aria-labelledby="about-location-heading"
           >
             <div className="border-b border-emerald-500/20 px-5 py-4 md:px-6">

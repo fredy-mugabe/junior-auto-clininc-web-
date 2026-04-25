@@ -61,6 +61,16 @@ export function sectionReveal(delay = 0) {
   } as const
 }
 
+/** Softer vertical nudge for dense copy blocks */
+export function fadeUpSoft(delay = 0) {
+  return {
+    initial: { opacity: 0, y: 14 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: '-50px' as const },
+    transition: { duration: 0.44, ease: easeOutExpo, delay },
+  } as const
+}
+
 /** Blog / Services style header block — stagger eyebrow → title → lead */
 export const sectionHeaderContainer = {
   hidden: {},
