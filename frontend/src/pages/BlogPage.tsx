@@ -95,7 +95,7 @@ export function BlogPage() {
                 </p>
                 <Link
                   to={`/blog/${post.slug}`}
-                  className="jac-btn jac-btn--primary mt-5 w-fit gap-2 text-sm"
+                  className="jac-btn jac-btn--primary mt-5 min-h-12 w-fit gap-2 px-6 text-base"
                 >
                   Read more
                   <span aria-hidden>→</span>
