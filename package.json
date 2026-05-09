@@ -2,7 +2,8 @@
   "name": "junior-auto-clinic",
   "private": true,
   "scripts": {
-    "typecheck:api": "tsc -p tsconfig.api.json"
+    "typecheck:api": "tsc -p tsconfig.api.json",
+    "push": "node scripts/git-push.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",

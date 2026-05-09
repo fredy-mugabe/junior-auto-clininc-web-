@@ -107,7 +107,7 @@ export function BlogPage() {
               and written guidance beats memory when a warning light appears at night.
             </span>
           </div>
-          <div className="mt-6 flex flex-wrap items-center gap-3">
+          <div className="mt-6">
             <input
               value={search}
               onChange={(e) => {
@@ -117,9 +117,6 @@ export function BlogPage() {
               placeholder="Search blog posts..."
               className="w-full max-w-md rounded-xl border border-emerald-500/30 bg-black/35 px-4 py-3 text-white placeholder:text-white/45 outline-none ring-emerald-500/30 focus:ring-2"
             />
-            <span className="text-sm text-white/65">
-              Page {page} of {totalPages}
-            </span>
           </div>
 
           <motion.ul
