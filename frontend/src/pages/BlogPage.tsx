@@ -120,10 +120,10 @@ export function BlogPage() {
           </div>
 
           <motion.ul
+            key={posts.map((p) => p.slug).join('|') || 'empty'}
             variants={listContainer}
             initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: '-40px' }}
+            animate="show"
             className="mt-12 grid gap-6 md:grid-cols-3"
           >
             {posts.map((post) => (

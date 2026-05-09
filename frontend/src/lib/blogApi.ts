@@ -35,6 +35,21 @@ function escapeIlikeToken(raw: string): string {
   return raw.replace(/\\/g, '\\\\').replace(/%/g, '\\%').replace(/_/g, '\\_').replace(/,/g, ' ')
 }
 
+async function withRetry<T>(fn: () => Promise<T>, attempts = 3, baseDelayMs = 400): Promise<T> {
+  let last: unknown
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await fn()
+    } catch (e) {
+      last = e
+      if (i < attempts - 1) {
+        await new Promise((r) => setTimeout(r, baseDelayMs * (i + 1)))
+      }
+    }
+  }
+  throw last instanceof Error ? last : new Error(String(last))
+}
+
 /**
  * Read published posts directly from Supabase (anon + RLS).
  * Used when /api/blog-posts fails (e.g. Vercel function env or routing).
@@ -166,13 +181,13 @@ export async function fetchBlogPosts(params: {
   tag?: string
 }): Promise<BlogListResponse> {
   try {
-    return await fetchBlogPostsFromApi(params)
+    return await withRetry(() => fetchBlogPostsFromApi(params))
   } catch (apiErr) {
     if (!supabaseBlogConfigured()) {
       throw apiErr instanceof Error ? apiErr : new Error(String(apiErr))
     }
     try {
-      return await fetchBlogPostsViaSupabase(params)
+      return await withRetry(() => fetchBlogPostsViaSupabase(params))
     } catch {
       const first = apiErr instanceof Error ? apiErr.message : String(apiErr)
       throw new Error(
@@ -184,7 +199,11 @@ export async function fetchBlogPosts(params: {
 
 export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
-    const res = await fetch(`${getApiUrl()}/api/blog-posts/${encodeURIComponent(slug)}`)
+    const res = await withRetry(async () => {
+      const r = await fetch(`${getApiUrl()}/api/blog-posts/${encodeURIComponent(slug)}`)
+      if (!r.ok && r.status >= 500) throw new Error(`Server ${r.status}`)
+      return r
+    })
     const text = await res.text()
     if (res.status === 404) {
       return null
