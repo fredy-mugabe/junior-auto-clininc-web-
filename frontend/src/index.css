@@ -1,0 +1,282 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+
+  --color-brand-green: #d2ffd4;
+  --color-brand-green-mid: #9ee8a3;
+  --color-brand-yellow: #f4d03f;
+  --color-brand-yellow-deep: #e6c235;
+  --color-brand-cream: #000000;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: #000000;
+  color: rgba(255, 255, 255, 0.96);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  color: inherit;
+}
+
+/* Framed shell on home / layout + matching footer */
+.jac-frame,
+.jac-footer {
+  background: linear-gradient(165deg, #071f1f 0%, #051616 42%, #041212 100%);
+}
+
+/* Inner pages: depth + subtle premium lighting (not flat black) */
+.jac-frame-inner {
+  position: relative;
+  min-height: 100svh;
+  background:
+    radial-gradient(ellipse 120% 70% at 50% -15%, rgba(16, 185, 129, 0.14), transparent 52%),
+    radial-gradient(ellipse 90% 55% at 100% 40%, rgba(212, 169, 60, 0.08), transparent 50%),
+    linear-gradient(168deg, #040f0e 0%, #051a18 42%, #020807 100%);
+}
+
+/* Marketing / editorial hero band */
+.jac-marketing-hero__bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(150deg, #051918 0%, #062822 45%, #041210 100%);
+}
+.jac-marketing-hero__shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 85% 60% at 18% 0%, rgba(212, 169, 60, 0.16), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 88% 12%, rgba(16, 185, 129, 0.12), transparent 52%);
+}
+.jac-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244, 208, 63, 0.9);
+}
+
+/* Glass surface — cards, panels, map chrome */
+.jac-surface {
+  border-radius: 1.25rem;
+  border: 1px solid rgba(52, 211, 153, 0.18);
+  background: linear-gradient(165deg, rgba(8, 42, 36, 0.9) 0%, rgba(5, 22, 18, 0.86) 100%);
+  box-shadow: 0 26px 56px -30px rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(14px);
+}
+
+.jac-icon-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 0.875rem;
+  border: 1px solid rgba(244, 208, 63, 0.28);
+  background: rgba(0, 0, 0, 0.32);
+  color: rgba(244, 208, 63, 0.95);
+}
+
+.jac-section-band {
+  border-top: 1px solid rgba(52, 211, 153, 0.14);
+  border-bottom: 1px solid rgba(52, 211, 153, 0.14);
+  background: rgba(5, 22, 18, 0.55);
+  backdrop-filter: blur(8px);
+}
+
+.jac-card {
+  border-radius: 1.125rem;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: rgba(8, 28, 25, 0.76);
+  box-shadow: 0 22px 54px -26px rgba(0, 0, 0, 0.6);
+}
+
+.brand-script {
+  font-family: var(--font-sans);
+  letter-spacing: 0.015em;
+}
+
+/* Classic display headings (home hero & editorial accents) */
+.font-display-classic {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Soft “bokeh” orbs for hero depth (reference-style atmosphere) */
+.hero-bokeh {
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 20%, rgba(16, 185, 129, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 85% 75%, rgba(244, 208, 63, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(0, 0, 0, 0.35) 0%, transparent 45%);
+}
+
+.bg-white {
+  background-color: rgba(10, 40, 36, 0.55) !important;
+}
+
+.bg-brand-cream {
+  background-color: transparent !important;
+}
+
+.bg-brand-green {
+  background-color: #15803d !important;
+}
+
+.hover\:bg-brand-green-mid:hover {
+  background-color: #16a34a !important;
+}
+
+#root {
+  min-height: 100svh;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  text-align: left;
+  border: none;
+}
+
+/* Home hero film-strip slider (moves continuously to the left). */
+.home-slider-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: home-slide-left 72s linear infinite;
+}
+
+@keyframes home-slide-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Classic gold buttons — black type on warm gold (readable on hero + dark bars) */
+.jac-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.015em;
+  line-height: 1.25;
+  border-radius: 9999px;
+  color: #14110a;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.jac-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #051616, 0 0 0 4px rgba(184, 137, 40, 0.85);
+}
+.jac-btn--primary {
+  border: 1px solid rgba(92, 69, 21, 0.55);
+  background: linear-gradient(160deg, #f0dc9c 0%, #d4a93c 52%, #af7f1e 100%);
+  box-shadow: 0 14px 32px -18px rgba(180, 136, 40, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.jac-btn--primary:hover {
+  filter: brightness(1.04);
+  border-color: rgba(77, 55, 14, 0.7);
+}
+.jac-btn--secondary {
+  border: 1px solid rgba(223, 188, 92, 0.55);
+  background: rgba(12, 30, 27, 0.84);
+  color: #f2e2b0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.jac-btn--secondary:hover {
+  background: rgba(16, 38, 34, 0.92);
+  border-color: rgba(238, 202, 103, 0.7);
+  color: #fff3cf;
+}
+.jac-btn--ghost {
+  border: 1px solid rgba(201, 162, 39, 0.45);
+  background: rgba(40, 32, 8, 0.35);
+  color: rgba(255, 248, 220, 0.92);
+}
+.jac-btn--ghost:hover {
+  border-color: rgba(230, 200, 100, 0.55);
+  background: rgba(55, 44, 12, 0.5);
+  color: #fffef8;
+}
+.jac-btn--nav {
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.jac-btn--nav-active {
+  border: 1px solid rgba(90, 66, 18, 0.5);
+  background: linear-gradient(165deg, #ecd48f 0%, #d4a93c 45%, #af7f1e 100%);
+  color: #14110a;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.jac-btn--nav-idle {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.82);
+}
+.jac-btn--nav-idle:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* ─── Gallery masonry grid ─────────────────────────────────────────────────── */
+.gallery-masonry-grid {
+  columns: 2;
+  column-gap: 1.25rem;
+}
+@media (min-width: 640px) {
+  .gallery-masonry-grid {
+    columns: 2;
+  }
+}
+@media (min-width: 768px) {
+  .gallery-masonry-grid {
+    columns: 3;
+  }
+}
+@media (min-width: 1024px) {
+  .gallery-masonry-grid {
+    columns: 4;
+  }
+}
+.gallery-card {
+  break-inside: avoid;
+  margin-bottom: 1.25rem;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Skeleton shimmer */
+@keyframes gallery-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.gallery-skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+  background-size: 800px 100%;
+  animation: gallery-shimmer 1.5s infinite linear;
+}
+

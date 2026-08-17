@@ -1,0 +1,17 @@
+{
+  "name": "junior-auto-clinic",
+  "private": true,
+  "scripts": {
+    "typecheck:api": "tsc -p tsconfig.api.json"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "@vercel/node": "^5.1.0",
+    "busboy": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/busboy": "^1.5.4",
+    "@types/node": "^22.10.5",
+    "typescript": "~5.9.3"
+  }
+}
