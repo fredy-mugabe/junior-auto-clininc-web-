@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../lib/supabaseClient'
+import { getApiUrl } from '../lib/constants'
 import { MarketingHero } from '../components/MarketingHero'
 import { listContainer, listItem } from '../lib/motion'
 
@@ -10,6 +11,8 @@ interface GalleryImage {
   url: string
   caption: string | null
   created_at: string
+  /** Supabase Storage object path — returned by the API, used for deletion. */
+  storage_path?: string | null
 }
 
 /* ─── SQL hint (run once in Supabase SQL Editor) ───────────────────────────
@@ -327,50 +330,57 @@ function UploadZone({ onUploaded }: UploadZoneProps) {
     }
     setError(null)
     setUploading(true)
-    setProgress(10)
+    setProgress(15)
 
-    const ext = file.name.split('.').pop() ?? 'jpg'
-    const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+    try {
+      // Get the current admin session token
+      const { data: sessionData } = await supabase.auth.getSession()
+      const token = sessionData.session?.access_token
+      if (!token) {
+        setError('Session expired — please sign in again.')
+        setUploading(false)
+        setProgress(0)
+        return
+      }
 
-    // Upload to Supabase Storage
-    const { data: storageData, error: storageErr } = await supabase.storage
-      .from('gallery')
-      .upload(filename, file, { cacheControl: '3600', upsert: false })
+      // Build multipart FormData — image + optional caption
+      const formData = new FormData()
+      formData.append('image', file)
+      if (caption.trim()) formData.append('caption', caption.trim())
 
-    setProgress(60)
+      setProgress(30)
 
-    if (storageErr) {
-      setError(storageErr.message)
+      const res = await fetch(`${getApiUrl()}/api/gallery`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      })
+
+      setProgress(90)
+
+      const json = await res.json().catch(() => ({}))
+
+      if (!res.ok) {
+        const msg = json.hint
+          ? `${json.error} — ${json.hint}`
+          : json.error || `Upload failed (${res.status})`
+        setError(msg)
+        setProgress(0)
+        setUploading(false)
+        return
+      }
+
+      setProgress(100)
       setUploading(false)
+      setCaption('')
       setProgress(0)
-      return
-    }
-
-    // Get public URL
-    const { data: urlData } = supabase.storage.from('gallery').getPublicUrl(storageData.path)
-    const publicUrl = urlData.publicUrl
-
-    setProgress(80)
-
-    // Insert into gallery_images table
-    const { data: row, error: dbErr } = await supabase
-      .from('gallery_images')
-      .insert({ url: publicUrl, caption: caption.trim() || null })
-      .select()
-      .single()
-
-    setProgress(100)
-    setUploading(false)
-
-    if (dbErr) {
-      setError(dbErr.message)
+      onUploaded(json.image as GalleryImage)
+    } catch (err) {
+      console.error('[Gallery] upload error:', err)
+      setError('Network error — could not reach the server. Please try again.')
       setProgress(0)
-      return
+      setUploading(false)
     }
-
-    setCaption('')
-    setProgress(0)
-    onUploaded(row as GalleryImage)
   }, [caption, onUploaded])
 
   const handleDrop = (e: React.DragEvent) => {
@@ -469,15 +479,22 @@ export function GalleryPage() {
     return () => listener.subscription.unsubscribe()
   }, [])
 
-  /* ── Fetch images ── */
+  /* ── Fetch images via API (server-side, uses service role) ── */
   const fetchImages = useCallback(async () => {
     setLoading(true)
-    const { data, error } = await supabase
-      .from('gallery_images')
-      .select('*')
-      .order('created_at', { ascending: false })
-    if (!error && data) setImages(data as GalleryImage[])
-    setLoading(false)
+    try {
+      const res = await fetch(`${getApiUrl()}/api/gallery`)
+      if (res.ok) {
+        const json = await res.json()
+        setImages((json.items ?? []) as GalleryImage[])
+      } else {
+        console.error('[Gallery] fetchImages error:', res.status)
+      }
+    } catch (err) {
+      console.error('[Gallery] fetchImages network error:', err)
+    } finally {
+      setLoading(false)
+    }
   }, [])
 
   useEffect(() => { fetchImages() }, [fetchImages])
@@ -488,12 +505,41 @@ export function GalleryPage() {
   const handleDelete = async (img: GalleryImage) => {
     if (!window.confirm(`Delete "${img.caption ?? 'this photo'}"?`)) return
     setDeletingId(img.id)
-    // Extract storage path from URL
-    const path = img.url.split('/object/public/gallery/')[1]
-    if (path) await supabase.storage.from('gallery').remove([path])
-    await supabase.from('gallery_images').delete().eq('id', img.id)
-    setImages((prev) => prev.filter((i) => i.id !== img.id))
-    setDeletingId(null)
+    try {
+      const { data: sessionData } = await supabase.auth.getSession()
+      const token = sessionData.session?.access_token
+      if (!token) {
+        alert('Session expired — please sign in again.')
+        setDeletingId(null)
+        return
+      }
+
+      const res = await fetch(`${getApiUrl()}/api/gallery`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          id: img.id,
+          storage_path: img.storage_path ?? undefined,
+        }),
+      })
+
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}))
+        alert(json.error || `Delete failed (${res.status})`)
+        setDeletingId(null)
+        return
+      }
+
+      setImages((prev) => prev.filter((i) => i.id !== img.id))
+    } catch (err) {
+      console.error('[Gallery] delete error:', err)
+      alert('Network error — could not reach the server.')
+    } finally {
+      setDeletingId(null)
+    }
   }
 
   const handleLogout = async () => {
