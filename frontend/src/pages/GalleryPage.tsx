@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabaseClient'
 import { getApiUrl } from '../lib/constants'
 import { MarketingHero } from '../components/MarketingHero'
 import { listContainer, listItem } from '../lib/motion'
+import { GALLERY_SEED_IMAGES } from '../lib/gallerySeed'
 
 /* ─── Types ────────────────────────────────────────────────────────────────── */
 interface GalleryImage {
@@ -486,12 +487,15 @@ export function GalleryPage() {
       const res = await fetch(`${getApiUrl()}/api/gallery`)
       if (res.ok) {
         const json = await res.json()
-        setImages((json.items ?? []) as GalleryImage[])
+        setImages([...GALLERY_SEED_IMAGES, ...((json.items ?? []) as GalleryImage[])])
       } else {
         console.error('[Gallery] fetchImages error:', res.status)
+        // Still show the built-in photos even if the API/DB isn't reachable.
+        setImages([...GALLERY_SEED_IMAGES])
       }
     } catch (err) {
       console.error('[Gallery] fetchImages network error:', err)
+      setImages([...GALLERY_SEED_IMAGES])
     } finally {
       setLoading(false)
     }
@@ -670,8 +674,8 @@ export function GalleryPage() {
                   </div>
                 )}
 
-                {/* Admin delete button */}
-                {isAdmin && (
+                {/* Admin delete button — not available for the built-in seed photos */}
+                {isAdmin && !img.id.startsWith('seed-') && (
                   <button
                     id={`gallery-delete-${img.id}`}
                     type="button"
