@@ -1,7 +1,18 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { COMPANY_LEGAL } from '../lib/constants'
-import { heroContainer, heroHeadline, heroItem, heroSubline } from '../lib/motion'
+import { heroContainer, heroHeadline, heroItem, heroSubline, listContainer, listItem, sectionReveal } from '../lib/motion'
+import {
+  IconGauge,
+  IconWrench,
+  IconEngine,
+  IconTruck,
+  IconShield,
+  IconClipboard,
+  IconAward,
+  IconUsers,
+} from '../components/ClassicIcons'
+import { GALLERY_SEED_IMAGES } from '../lib/gallerySeed'
 
 /** Full-bleed slideshow — your workshop & facility photography + reference atmosphere slide */
 /** Workshop photography only — do not use template/stock hero screenshots with foreign branding or text. */
@@ -23,11 +34,62 @@ const stats = [
   { value: 'Full service', label: 'Diagnostics to handover' },
 ] as const
 
+/** Live-status style readout under the hero — workshop equivalent of a systems dashboard. */
+const statusReadouts = [
+  { label: 'BAYS ACTIVE', value: '6 / 6', note: 'Full capacity today' },
+  { label: 'DIAGNOSTIC SYNC', value: 'OK', note: 'Toyota-grade scan tools' },
+  { label: 'PARTS PIPELINE', value: 'LIVE', note: 'Genuine parts on order' },
+  { label: 'TOYOTA STATUS', value: 'AUTHORIZED', note: 'Musanze service center' },
+] as const
+
+const coreServices = [
+  {
+    name: 'Diagnostics & Scanning',
+    detail: 'Computerized fault-finding before any part is touched — no guesswork billing.',
+    Icon: IconGauge,
+  },
+  {
+    name: 'Engine & Drivetrain',
+    detail: 'From rough idling to full rebuilds, tracked against manufacturer specification.',
+    Icon: IconEngine,
+  },
+  {
+    name: 'General Repairs',
+    detail: 'Brakes, suspension, electrical, cooling — handled by trained technicians.',
+    Icon: IconWrench,
+  },
+  {
+    name: 'Fleet & Business',
+    detail: 'Scheduled maintenance cycles and documented history for commercial vehicles.',
+    Icon: IconTruck,
+  },
+] as const
+
+const proofPoints = [
+  {
+    title: 'Toyota Rwanda Authorized',
+    detail: 'Officially partnered as a Toyota Rwanda authorized service center in Musanze — genuine parts, factory-grade standards.',
+    Icon: IconShield,
+  },
+  {
+    title: 'Written findings, every time',
+    detail: 'Every diagnosis comes with a documented report — what we found, what it costs, and what can wait.',
+    Icon: IconClipboard,
+  },
+  {
+    title: 'Trained, uniformed technicians',
+    detail: 'A dedicated Musanze workshop team, trained to Toyota Global Standard service procedures.',
+    Icon: IconAward,
+  },
+] as const
+
 export function HomePage() {
   const navigate = useNavigate()
   const loopSlides = [...SLIDES, ...SLIDES]
+  const featuredPartnershipPhoto = GALLERY_SEED_IMAGES.find((img) => img.featured) ?? GALLERY_SEED_IMAGES[0]
 
   return (
+    <>
     <section className="relative flex min-h-[100dvh] w-full flex-col overflow-hidden rounded-none">
       {/* Slideshow film strip */}
       <div className="home-slider-track pointer-events-none absolute inset-0 z-0">
@@ -161,5 +223,170 @@ export function HomePage() {
         </motion.div>
       </div>
     </section>
+
+    {/* ─── Live workshop status strip ─────────────────────────────────────── */}
+    <section className="jac-section-band px-5 py-8 md:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-5 flex items-center gap-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white/40">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+          </span>
+          Live Workshop Status — Musanze
+        </div>
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-4">
+          {statusReadouts.map(({ label, value, note }) => (
+            <div key={label} className="bg-[#04110d]/95 px-5 py-5">
+              <p className="font-mono text-[0.65rem] uppercase tracking-widest text-white/40">{label}</p>
+              <p className="mt-1.5 font-mono text-xl font-bold text-[#f0dc9c] md:text-2xl">{value}</p>
+              <p className="mt-1 text-xs text-white/45">{note}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ─── Core services grid ─────────────────────────────────────────────── */}
+    <section className="px-5 py-16 md:px-8 md:py-24">
+      <div className="mx-auto max-w-7xl">
+        <motion.div {...sectionReveal()} className="max-w-2xl">
+          <p className="jac-eyebrow">What we work on</p>
+          <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">Core services, engineered right</h2>
+          <p className="mt-4 text-base leading-relaxed text-white/70 md:text-lg">
+            Every job runs through the same structured process — diagnose, document, decide, repair —
+            whether it's a warning light or a full rebuild.
+          </p>
+        </motion.div>
+
+        <motion.div
+          variants={listContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-80px' }}
+          className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {coreServices.map(({ name, detail, Icon }) => (
+            <motion.div key={name} variants={listItem} className="jac-surface p-6">
+              <span className="jac-icon-tile h-12 w-12"><Icon className="h-6 w-6" /></span>
+              <h3 className="mt-5 text-lg font-bold text-white">{name}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/65">{detail}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <div className="mt-8">
+          <button
+            type="button"
+            onClick={() => navigate('/services')}
+            className="jac-btn jac-btn--ghost px-6 py-3 text-sm"
+          >
+            View all services
+            <span className="ml-1" aria-hidden>→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    {/* ─── Toyota partnership proof banner ────────────────────────────────── */}
+    <section className="px-5 pb-16 md:px-8 md:pb-24">
+      <motion.div
+        {...sectionReveal()}
+        className="mx-auto max-w-7xl overflow-hidden rounded-2xl border border-[#d4a93c]/25"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <button
+            type="button"
+            onClick={() => navigate('/gallery')}
+            className="group relative block h-64 w-full overflow-hidden md:h-auto"
+          >
+            <img
+              src={featuredPartnershipPhoto.url}
+              alt={featuredPartnershipPhoto.caption ?? 'Toyota Rwanda partnership'}
+              className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent md:bg-gradient-to-r" />
+          </button>
+          <div className="jac-surface flex flex-col justify-center rounded-none border-0 p-8 md:p-12">
+            <span className="inline-flex w-fit items-center rounded-full border border-[#d4a93c]/40 bg-[#d4a93c]/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-widest text-[#f0dc9c]">
+              Toyota Rwanda Authorized Partner
+            </span>
+            <h3 className="mt-4 text-2xl font-bold text-white md:text-3xl">
+              Now a Toyota-authorized service center in Musanze
+            </h3>
+            <p className="mt-3 text-sm leading-relaxed text-white/70 md:text-base">
+              {COMPANY_LEGAL} officially partnered with Toyota Rwanda in March 2026, bringing genuine
+              parts, factory-grade tooling, and Toyota Global Standard procedures to Musanze drivers.
+            </p>
+            <button
+              type="button"
+              onClick={() => navigate('/gallery')}
+              className="jac-btn jac-btn--secondary mt-6 w-fit px-6 py-3 text-sm"
+            >
+              See the gallery
+              <span className="ml-1" aria-hidden>→</span>
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </section>
+
+    {/* ─── Why Junior Auto Clinique ───────────────────────────────────────── */}
+    <section className="jac-section-band px-5 py-16 md:px-8 md:py-24">
+      <div className="mx-auto max-w-7xl">
+        <motion.div {...sectionReveal()} className="max-w-2xl">
+          <p className="jac-eyebrow">Why choose us</p>
+          <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">A workshop you can verify</h2>
+        </motion.div>
+
+        <motion.div
+          variants={listContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-80px' }}
+          className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3"
+        >
+          {proofPoints.map(({ title, detail, Icon }) => (
+            <motion.div key={title} variants={listItem} className="jac-surface p-7">
+              <span className="jac-icon-tile h-12 w-12"><Icon className="h-6 w-6" /></span>
+              <h3 className="mt-5 text-lg font-bold text-white">{title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/65">{detail}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+
+    {/* ─── Final CTA ───────────────────────────────────────────────────────── */}
+    <section className="px-5 py-20 md:px-8 md:py-28">
+      <motion.div
+        {...sectionReveal()}
+        className="jac-surface mx-auto flex max-w-4xl flex-col items-center gap-6 p-10 text-center md:p-14"
+      >
+        <span className="jac-icon-tile h-14 w-14"><IconUsers className="h-6 w-6" /></span>
+        <h2 className="text-2xl font-bold text-white md:text-3xl">
+          Your car's next service starts with one honest diagnosis.
+        </h2>
+        <p className="max-w-xl text-sm leading-relaxed text-white/65 md:text-base">
+          Bring it in, or book a slot — we'll tell you exactly what's going on before anything is touched.
+        </p>
+        <div className="flex flex-col gap-4 sm:flex-row">
+          <button
+            type="button"
+            onClick={() => navigate('/contact')}
+            className="jac-btn jac-btn--primary px-8 py-3"
+          >
+            Book a service
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate('/services')}
+            className="jac-btn jac-btn--secondary px-8 py-3"
+          >
+            Explore services
+          </button>
+        </div>
+      </motion.div>
+    </section>
+    </>
   )
 }
