@@ -146,4 +146,18 @@ export const GALLERY_SEED_IMAGES: SeedGalleryImage[] = [
     category: 'Grand Opening',
     created_at: '2026-03-10T09:12:00Z',
   },
+  {
+    id: 'seed-19',
+    url: '/gallery-seed/jac-toyota-19.jpg',
+    caption: 'The ribbon is cut — Junior Auto Clinique and Toyota Rwanda leadership officially open the Musanze service center.',
+    category: 'Grand Opening',
+    created_at: '2026-03-10T09:15:00Z',
+  },
+  {
+    id: 'seed-20',
+    url: '/gallery-seed/jac-toyota-20.jpg',
+    caption: 'Leadership from Junior Auto Clinique and Toyota Rwanda pose together outside the workshop after the ribbon-cutting.',
+    category: 'Grand Opening',
+    created_at: '2026-03-10T09:18:00Z',
+  },
 ]

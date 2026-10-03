@@ -69,6 +69,21 @@ export function Footer() {
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-10%,rgba(244,208,63,0.08),transparent_55%)]"
           aria-hidden
         />
+
+        {/* Status micro-bar */}
+        <div className="relative flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-4 py-3 md:px-8 lg:px-10">
+          <div className="flex items-center gap-2 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-white/50">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            </span>
+            <span className="font-mono">Mon–Sat · 07:30–19:00</span>
+          </div>
+          <div className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#F4D03F]/85">
+            Toyota Rwanda Authorized Partner · Musanze
+          </div>
+        </div>
+
         <div className="relative py-10 text-white md:py-12">
           <div className="mx-auto grid max-w-[min(100%,1980px)] gap-10 px-4 md:grid-cols-12 md:gap-8 md:px-8 lg:px-10">
             <motion.div

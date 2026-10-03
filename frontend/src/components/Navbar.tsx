@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { IconPhone } from './ClassicIcons'
+import { PHONES } from '../lib/constants'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -28,6 +30,20 @@ export function Navbar({ overHero = false }: NavbarProps) {
         overHero ? 'pointer-events-none absolute inset-x-0 top-0' : 'relative',
       ].join(' ')}
     >
+      {/* Status micro-bar */}
+      <div className="pointer-events-none mx-auto mb-1.5 hidden w-full max-w-[min(100%,1830px)] items-center justify-between px-2 lg:flex">
+        <div className="flex items-center gap-2 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-white/50">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+          </span>
+          <span className="font-mono">Musanze Workshop · Open</span>
+        </div>
+        <div className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#f0dc9c]/80">
+          Toyota Rwanda Authorized Partner
+        </div>
+      </div>
+
       <div className="pointer-events-auto mx-auto flex w-full max-w-[min(100%,1830px)] items-center justify-between gap-3 rounded-2xl border border-white/12 bg-gradient-to-r from-black/35 via-[#0b1d18]/30 to-black/35 px-4 py-3.5 shadow-[0_14px_42px_-20px_rgba(0,0,0,0.85)] backdrop-blur-2xl md:px-6">
         <NavLink
           to="/"
@@ -52,22 +68,33 @@ export function Navbar({ overHero = false }: NavbarProps) {
               to={to}
               className={({ isActive }) =>
                 [
-                  'jac-btn jac-btn--nav px-3 py-2 transition',
+                  'jac-btn jac-btn--nav relative px-3 py-2 transition',
                   isActive ? 'jac-btn--nav-active' : 'jac-btn--nav-idle',
                 ].join(' ')
               }
             >
-              {label}
+              {({ isActive }) => (
+                <span className="inline-flex items-center gap-1.5">
+                  {isActive && <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#f0dc9c]" aria-hidden />}
+                  {label}
+                </span>
+              )}
             </NavLink>
           ))}
         </nav>
 
-        <NavLink
-          to="/careers"
-          className="jac-btn jac-btn--primary hidden px-4 py-2 text-sm lg:inline-flex"
-        >
-          Apply now
-        </NavLink>
+        <div className="hidden items-center gap-2 lg:flex">
+          <a
+            href={`tel:${PHONES[0]}`}
+            aria-label={`Call ${PHONES[0]}`}
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/[0.04] text-white/70 transition hover:border-[#d4a93c]/40 hover:bg-[#d4a93c]/10 hover:text-[#f0dc9c]"
+          >
+            <IconPhone className="h-4 w-4" />
+          </a>
+          <NavLink to="/careers" className="jac-btn jac-btn--primary px-4 py-2 text-sm">
+            Apply now
+          </NavLink>
+        </div>
 
         <button
           type="button"
