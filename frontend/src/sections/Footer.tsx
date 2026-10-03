@@ -55,37 +55,36 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="jac-footer relative px-3 pb-6 pt-0 md:px-8 md:pb-10">
+    <footer className="jac-footer relative overflow-hidden text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
+
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-10%,rgba(244,208,63,0.08),transparent_55%)]"
+        aria-hidden
+      />
+
+      {/* Status micro-bar */}
+      <div className="relative flex flex-wrap items-center justify-between gap-3 border-b border-t border-white/10 px-4 py-3 md:px-8 lg:px-10">
+        <div className="flex items-center gap-2 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-white/50">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+          </span>
+          <span className="font-mono">Mon–Sat · 07:30–19:00</span>
+        </div>
+        <div className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#F4D03F]/85">
+          Toyota Rwanda Authorized Partner · Musanze
+        </div>
+      </div>
 
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] as const }}
-        className="jac-footer mx-auto max-w-[min(100%,1980px)] overflow-hidden border-t border-[#F4D03F]/20 shadow-[0_-12px_48px_-16px_rgba(0,0,0,0.55)] ring-1 ring-white/[0.06]"
+        className="relative py-10 md:py-12"
       >
-        <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-10%,rgba(244,208,63,0.08),transparent_55%)]"
-          aria-hidden
-        />
-
-        {/* Status micro-bar */}
-        <div className="relative flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-4 py-3 md:px-8 lg:px-10">
-          <div className="flex items-center gap-2 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-white/50">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            </span>
-            <span className="font-mono">Mon–Sat · 07:30–19:00</span>
-          </div>
-          <div className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#F4D03F]/85">
-            Toyota Rwanda Authorized Partner · Musanze
-          </div>
-        </div>
-
-        <div className="relative py-10 text-white md:py-12">
-          <div className="mx-auto grid max-w-[min(100%,1980px)] gap-10 px-4 md:grid-cols-12 md:gap-8 md:px-8 lg:px-10">
+        <div className="mx-auto grid max-w-[min(100%,1980px)] gap-10 px-4 md:grid-cols-12 md:gap-8 md:px-8 lg:px-10">
             <motion.div
               className="md:col-span-4"
               variants={fadeUp}
@@ -187,7 +186,6 @@ export function Footer() {
               ) : null}
             </p>
           </motion.div>
-        </div>
       </motion.div>
     </footer>
   )
