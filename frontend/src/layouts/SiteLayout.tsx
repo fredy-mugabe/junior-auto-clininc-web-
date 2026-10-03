@@ -29,7 +29,7 @@ export function SiteLayout() {
   }, [location.pathname])
 
   return (
-    <div className="min-h-svh bg-black">
+    <div className="jac-frame min-h-svh">
       <PageFrame>
         <div className={isHome ? 'relative min-h-[100dvh]' : 'jac-frame-inner'}>
           <Navbar overHero={isHome} />

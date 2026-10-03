@@ -55,7 +55,7 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="relative px-3 pb-6 pt-2 md:px-8 md:pb-10">
+    <footer className="jac-footer relative px-3 pb-6 pt-0 md:px-8 md:pb-10">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
 
       <motion.div
@@ -63,7 +63,7 @@ export function Footer() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] as const }}
-        className="jac-footer mx-auto max-w-[min(100%,1980px)] overflow-hidden rounded-t-[1.85rem] border border-[#F4D03F]/20 shadow-[0_-12px_48px_-16px_rgba(0,0,0,0.55)] ring-1 ring-white/[0.06] md:rounded-t-[2.35rem]"
+        className="jac-footer mx-auto max-w-[min(100%,1980px)] overflow-hidden border-t border-[#F4D03F]/20 shadow-[0_-12px_48px_-16px_rgba(0,0,0,0.55)] ring-1 ring-white/[0.06]"
       >
         <div
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-10%,rgba(244,208,63,0.08),transparent_55%)]"
