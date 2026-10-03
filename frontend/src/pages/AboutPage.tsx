@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import {
   IconAward,
   IconBuilding,
   IconClipboard,
   IconShield,
   IconUsers,
+  IconMapPin,
 } from '../components/ClassicIcons'
 import { PageHero } from '../components/PageHero'
 import { StockSectionBackdrop } from '../components/StockSectionBackdrop'
@@ -12,6 +14,15 @@ import { About } from '../sections/About'
 import { getGoogleMapsEmbedSrc } from '../lib/constants'
 import { GARAGE_IMAGES } from '../lib/garageImages'
 import { listContainer, listItem, sectionReveal } from '../lib/motion'
+import { StatusStrip } from '../components/StatusStrip'
+import { CtaBand } from '../components/CtaBand'
+
+const aboutStatus = [
+  { label: 'TOYOTA STATUS', value: 'AUTHORIZED', note: 'Rwanda service partner' },
+  { label: 'LOCATION', value: 'MUSANZE', note: 'Northern Province' },
+  { label: 'TEAM CULTURE', value: 'MENTORSHIP', note: 'Internships & career paths' },
+  { label: 'STANDARDS', value: 'DOCUMENTED', note: 'Checklists, not guesswork' },
+] as const
 
 const highlights = [
   {
@@ -56,6 +67,7 @@ const values = [
 ] as const
 
 export function AboutPage() {
+  const navigate = useNavigate()
   return (
     <>
       <PageHero
@@ -65,6 +77,8 @@ export function AboutPage() {
         subtitle="We built JUNIOR AUTO CLINIQUE ltd around a simple idea: drivers should understand what is happening with their vehicle before money changes hands. That means disciplined inspections, evidence-based diagnostics, and advisors who translate technician findings into clear choices."
         subtitleSecondary="Whether you are visiting for a warning light, a pre-trip check, or a long-term maintenance plan, our team focuses on consistency — the same standards on busy days and quiet ones — so you can book with confidence and recommend us to family or colleagues without hesitation."
       />
+
+      <StatusStrip title="Company Status — Musanze" readouts={aboutStatus} className="pt-10" />
 
       <section className="jac-section-band px-5 py-12 md:px-8">
         <motion.div
@@ -148,6 +162,16 @@ export function AboutPage() {
           </motion.div>
         </div>
       </StockSectionBackdrop>
+
+      <CtaBand
+        Icon={IconMapPin}
+        heading="Come see the workshop for yourself."
+        detail="Musanze drivers are welcome to stop by, ask questions, and see how we work before booking anything."
+        primaryLabel="Get directions"
+        onPrimaryClick={() => navigate('/contact')}
+        secondaryLabel="View our gallery"
+        onSecondaryClick={() => navigate('/gallery')}
+      />
     </>
   )
 }

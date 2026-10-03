@@ -1,16 +1,26 @@
 import { motion } from 'framer-motion'
-import { IconClipboard, IconSparkle, IconTruck, IconWrench } from '../components/ClassicIcons'
+import { useNavigate } from 'react-router-dom'
+import { IconClipboard, IconSparkle, IconTruck, IconWrench, IconPhone } from '../components/ClassicIcons'
 import { PageHero } from '../components/PageHero'
 import { StockSectionBackdrop } from '../components/StockSectionBackdrop'
 import { Services } from '../sections/Services'
 import { GARAGE_IMAGES } from '../lib/garageImages'
 import { listContainer, listItem, sectionReveal } from '../lib/motion'
+import { StatusStrip } from '../components/StatusStrip'
+import { CtaBand } from '../components/CtaBand'
 
 const serviceStrip = [
   { label: 'Structured diagnostics', Icon: IconSparkle },
   { label: 'Parts discipline', Icon: IconWrench },
   { label: 'Written findings', Icon: IconClipboard },
   { label: 'Fleet-ready workflows', Icon: IconTruck },
+] as const
+
+const servicesStatus = [
+  { label: 'AVG DIAGNOSIS TIME', value: '< 45 min', note: 'Before any work begins' },
+  { label: 'PARTS STANDARD', value: 'GENUINE', note: 'Toyota Global Standard' },
+  { label: 'FLEET ACCOUNTS', value: 'OPEN', note: 'Scheduled maintenance plans' },
+  { label: 'WARRANTY RECORDS', value: 'DOCUMENTED', note: 'Every job, on file' },
 ] as const
 
 const packages = [
@@ -35,6 +45,7 @@ const packages = [
 ] as const
 
 export function ServicesPage() {
+  const navigate = useNavigate()
   return (
     <>
       <PageHero
@@ -44,6 +55,8 @@ export function ServicesPage() {
         subtitle="From routine care to complex repairs, we combine structured workflows with honest communication. You will know what we found, what we recommend now versus later, and what each option costs — before we turn a wrench."
         subtitleSecondary="Our technicians work with quality parts appropriate to each job, retest systems after repair, and document outcomes so you have a clear record for warranty, resale, or your own peace of mind."
       />
+
+      <StatusStrip title="Live Service Metrics — Musanze" readouts={servicesStatus} className="pt-10" />
 
       <section className="jac-section-band px-5 py-10 md:px-8">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 md:gap-10">
@@ -106,6 +119,16 @@ export function ServicesPage() {
           </motion.div>
         </div>
       </StockSectionBackdrop>
+
+      <CtaBand
+        Icon={IconPhone}
+        heading="Not sure which package fits your vehicle?"
+        detail="Tell us the symptoms or how you use the vehicle — we'll recommend the right starting point before you commit to anything."
+        primaryLabel="Contact the workshop"
+        onPrimaryClick={() => navigate('/contact')}
+        secondaryLabel="View the gallery"
+        onSecondaryClick={() => navigate('/gallery')}
+      />
     </>
   )
 }

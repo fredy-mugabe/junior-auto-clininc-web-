@@ -5,6 +5,14 @@ import { StockSectionBackdrop } from '../components/StockSectionBackdrop'
 import { ApplySection } from '../sections/ApplySection'
 import { GARAGE_IMAGES } from '../lib/garageImages'
 import { listContainer, listItem } from '../lib/motion'
+import { StatusStrip } from '../components/StatusStrip'
+
+const careersStatus = [
+  { label: 'TRACKS OPEN', value: '2', note: 'Internship & professional' },
+  { label: 'TRAINING', value: 'ONGOING', note: 'Manufacturer-aligned' },
+  { label: 'MENTORSHIP', value: 'ACTIVE', note: 'Senior techs on the floor' },
+  { label: 'APPLICATIONS', value: 'REVIEWED WEEKLY', note: 'Apply below' },
+] as const
 
 export function CareersPage() {
   return (
@@ -38,6 +46,8 @@ export function CareersPage() {
           fastest route to a conversation with our team.
         </p>
       </MarketingHero>
+
+      <StatusStrip title="Careers Status — Musanze" readouts={careersStatus} />
 
       <StockSectionBackdrop bgUrl={GARAGE_IMAGES.contentCareers} className="py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-5 md:px-8">

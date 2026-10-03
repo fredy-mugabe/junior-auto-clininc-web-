@@ -3,6 +3,14 @@ import { IconClock, IconMail, IconMapPin, IconPhone } from '../components/Classi
 import { MarketingHero } from '../components/MarketingHero'
 import { COMPANY_LEGAL, EMAIL, PHONES } from '../lib/constants'
 import { listContainer, listItem, sectionReveal } from '../lib/motion'
+import { StatusStrip } from '../components/StatusStrip'
+
+const contactStatus = [
+  { label: 'HOURS', value: 'MON–SAT', note: '07:30 – 19:00' },
+  { label: 'SUNDAY', value: 'EMERGENCY ONLY', note: 'Limited capacity' },
+  { label: 'EMAIL RESPONSE', value: '< 2 HRS', note: 'During workshop hours' },
+  { label: 'LOCATION', value: 'MUSANZE', note: 'Northern corridor access' },
+] as const
 
 export function ContactPage() {
   return (
@@ -17,6 +25,8 @@ export function ContactPage() {
           pickup or workshop-only service.
         </p>
       </MarketingHero>
+
+      <StatusStrip title="Contact Status — Musanze" readouts={contactStatus} />
 
       <motion.section className="px-5 py-16 md:px-8 md:py-24" {...sectionReveal()}>
         <motion.div
