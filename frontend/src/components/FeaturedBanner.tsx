@@ -10,6 +10,8 @@ interface FeaturedBannerProps {
   ctaLabel: string
   onCtaClick: () => void
   className?: string
+  /** CSS object-position value for the banner image crop — defaults to centered. */
+  imagePosition?: string
 }
 
 export function FeaturedBanner({
@@ -21,6 +23,7 @@ export function FeaturedBanner({
   ctaLabel,
   onCtaClick,
   className = '',
+  imagePosition = '50% 50%',
 }: FeaturedBannerProps) {
   return (
     <section className={`px-5 py-16 md:px-8 md:py-24 ${className}`}>
@@ -37,6 +40,7 @@ export function FeaturedBanner({
             <img
               src={imageUrl}
               alt={imageAlt}
+              style={{ objectPosition: imagePosition }}
               className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent md:bg-gradient-to-r" />

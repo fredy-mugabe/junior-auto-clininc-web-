@@ -243,6 +243,7 @@ export function HomePage() {
     <FeaturedBanner
       imageUrl={featuredPartnershipPhoto.url}
       imageAlt={featuredPartnershipPhoto.caption ?? 'Toyota Rwanda partnership'}
+      imagePosition="50% 15%"
       badge="Toyota Rwanda Authorized Partner"
       title="Now a Toyota-authorized service center in Musanze"
       detail={`${COMPANY_LEGAL} officially partnered with Toyota Rwanda in March 2026, bringing genuine parts, factory-grade tooling, and Toyota Global Standard procedures to Musanze drivers.`}

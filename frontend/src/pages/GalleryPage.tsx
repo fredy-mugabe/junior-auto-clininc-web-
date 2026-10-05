@@ -305,6 +305,7 @@ export function GalleryPage() {
             <img
               src={featuredImage.url}
               alt={featuredImage.caption ?? 'Featured photo'}
+              style={{ objectPosition: '50% 15%' }}
               className="h-[280px] w-full object-cover transition duration-700 group-hover:scale-105 md:h-[420px]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
