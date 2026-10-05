@@ -8,6 +8,7 @@ import { StatusStrip } from '../components/StatusStrip'
 import { IconCardGrid } from '../components/IconCardGrid'
 import { FeaturedBanner } from '../components/FeaturedBanner'
 import { CtaBand } from '../components/CtaBand'
+import { PerformanceCharts } from '../components/PerformanceCharts'
 
 /** Full-bleed slideshow — your workshop & facility photography + reference atmosphere slide */
 /** Workshop photography only — do not use template/stock hero screenshots with foreign branding or text. */
@@ -236,6 +237,8 @@ export function HomePage() {
         </button>
       </div>
     </div>
+
+    <PerformanceCharts />
 
     <FeaturedBanner
       imageUrl={featuredPartnershipPhoto.url}
