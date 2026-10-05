@@ -11,6 +11,8 @@
 export interface SeedGalleryImage {
   id: string
   url: string
+  /** Lightweight ~640px version used for grid thumbnails — full `url` is reserved for the lightbox/banner. */
+  thumbUrl: string
   caption: string
   category: 'Signing Ceremony' | 'Team & Workshop' | 'Grand Opening'
   created_at: string
@@ -18,7 +20,7 @@ export interface SeedGalleryImage {
   featured?: boolean
 }
 
-export const GALLERY_SEED_IMAGES: SeedGalleryImage[] = [
+const RAW_SEED_IMAGES: Omit<SeedGalleryImage, 'thumbUrl'>[] = [
   {
     id: 'seed-01',
     url: '/gallery-seed/jac-toyota-01.jpg',
@@ -161,3 +163,8 @@ export const GALLERY_SEED_IMAGES: SeedGalleryImage[] = [
     created_at: '2026-03-10T09:18:00Z',
   },
 ]
+
+export const GALLERY_SEED_IMAGES: SeedGalleryImage[] = RAW_SEED_IMAGES.map((img) => ({
+  ...img,
+  thumbUrl: img.url.replace('/gallery-seed/', '/gallery-seed/thumbs/'),
+}))

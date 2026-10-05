@@ -9,6 +9,8 @@ import { GALLERY_SEED_IMAGES } from '../lib/gallerySeed'
 interface GalleryImage {
   id: string
   url: string
+  /** Lightweight version for grid thumbnails — falls back to `url` when absent (e.g. admin uploads). */
+  thumbUrl?: string
   caption: string | null
   created_at: string
   category?: string
@@ -387,8 +389,10 @@ export function GalleryPage() {
                   aria-label={`View ${img.caption ?? 'photo'} fullscreen`}
                 >
                   <img
-                    src={img.url}
+                    src={img.thumbUrl ?? img.url}
                     alt={img.caption ?? 'Workshop photo'}
+                    width={640}
+                    height={480}
                     className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105"
                     loading="lazy"
                     decoding="async"
